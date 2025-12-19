@@ -76,8 +76,24 @@
             <?php    
 
             // Variables Globales
-            //$tableau_poids_sourate = [0];
-
+            $asma_ar = ["اللَّه", "لِلَّهِ", "رَبِّ","رَبَّ", "رَبِّهِمْ", "رَبَّنَا", "رَبِّكَ", "رَبُّكَ", "رَبِّهِمْ", "رَبَّنَا", "رَبِّكَ", "رَبُّكَ","الرَّحمٰنِ","الرَّحيمِ","مٰلِكِ","القُدُّوس","السَّلَام","المُؤْمِن","المُهَيْمِن", "العَزِيز","الجَبَّار","المُتَكَبِّر","الخَالِق","البَارِىء","المُصَوِّر","الغَفَّار", "القَهَّار","الوَهَّاب","الرَّزَّاق","الفَتَّاح","العَلِيم","القَابِض","البָاسِط",
+                     "الخَافِض","الرَّافِع","المُعِزّ","المُذِلّ","السَّمِيع","البَصِير","الحَكَم","العَدْل", "اللَّطِيف","الخَبِير","الحَلِيم","العَظِيم","الغَفُور","الشَّكُور","العَلِيّ","الكَبِير",
+                     "الحَفِيظ","المُقِيت","الحَسِيب","الجَلِيل","الكَرِيم","الرَّقِيب","المُجِيب","الوَاسِع", "الحَكِيم","الوَدُود","المَجِيد","البَاعِث","الشَّهِيد","الحَقّ","الوَكِيل","القَوِيّ",
+                     "المَتِين","الوَلِيّ","الحَمِيد","المُحْصِي","المُبْدِئ","المُعِيد","المُحْيِي","المُمِيت", "الحَيّ","القَيّوم","الوَاجِد","المَاجِد","الوَاحِد","الأَحَد","الصَّمَد","القَادِر",
+                     "المُقْتَدِر","المُقَدِّم","المُؤَخِّر","الأَوَّل","الآخِر","الظَّاهِر","البَاطِن", "الوَالِي","المُتَعَالِي","البَرّ","التَّوَّاب","المُنْتَقِم","العَفُوّ","الرَّؤُوف",
+                     "مَالِكُ المُلْك","ذُو الجَلَال وَالإِكْرَام","المُقْسِط","الجَامِع","الغَنِيّ","المُغْنِي", "المَانِع","الضَّار","النَّافِع","النُّور","الهَادِي","البَدِيع","البَاقِي","الوَارِث", "الرَّشِيد","الصَّبُور"];
+                
+            $asma_fr = ["Allah","Le Tout-Miséricordieux","Le Très-Miséricordieux","Le Souverain","Le Très-Saint", "La Paix","Le Garant","Le Protecteur","Le Tout-Puissant","Le Contraignant","Le Suprême",
+                    "Le Créateur","Le Façonneur","Celui qui donne forme","Le Très-Pardonnant", "Le Dominateur absolu","Le Donateur","Le Pourvoyeur","Celui qui accorde la victoire",
+                    "L'Omniscient","Celui qui restreint","Celui qui étend","Celui qui abaisse","Celui qui élève", "Celui qui honore","Celui qui avilit","L'Audient","Le Clairvoyant","Le Juge","Le Juste",
+                    "Le Subtil","Le Parfaitement informé","Le Très-Doux","L'Immense","Le Très-Clément", "Le Très-Reconnaissant","Le Très-Haut","Le Très-Grand","Le Préservateur","Celui qui nourrit",
+                    "Celui qui suffit","Le Majestueux","Le Très-Généreux","Le Vigilant","Celui qui répond","L'Incommensurable","Le Sage","Le Très-Aimant","Le Glorieux","Celui qui ressuscite",
+                    "Le Témoin","La Vérité","Le Garant","Le Très-Fort","Le Robuste","Le Protecteur","Le Digne de louange","Celui qui dénombre","Celui qui fait apparaître","Celui qui redonne vie",
+                    "Celui qui donne la vie","Celui qui donne la mort","Le Vivant","Celui qui subsiste par Lui-même", "Celui qui possède toute chose","Le Noble","L'Unique","L'Un","L'Absolu","Le Tout-Puissant",
+                    "L'Omnipotent","Celui qui avance","Celui qui retarde","Le Premier","Le Dernier","L'Apparent", "Le Caché","Le Maître absolu","Le Très-Élevé","Le Bienfaiteur","Celui qui accepte le repentir",
+                    "Le Vengeur","L'Indulgent","Très-Clément","Maître du Royaume","Détenteur de Majesté et de Générosité", "L'Équitable","Celui qui rassemble","Le Suffisant","Celui qui enrichit","Celui qui empêche",
+                    "Celui qui afflige","Celui qui accorde le bien","La Lumière","Le Guide","L'Incomparable","Le Permanent","L'Héritier","Le Guide vers la droiture","Le Patient"];
+                
             ## including the file of coran
             #include 'quran-uthmani-min.txt';
 
@@ -115,6 +131,10 @@
                 }
                 $result = $title.$result;
                 $style = '<div style="padding:15%;overflow:hidden;">';
+
+                foreach ($asma_fr as $mot) {
+                    $result = str_replace($mot, "<span style='color:red;'>$mot</span>", $result);
+                }
                 echo $style.$result.'</div>';
             }
 
@@ -196,6 +216,17 @@
                 # Divible par 12 ?
                 if($poids_sourate % 12 === 0)
                     echo "Poids divible par 12 <Br\>";
+
+                $mots = [];
+                $asma_ar = ["اللَّه", "لِلَّهِ", "رَبِّ","رَبَّ", "رَبِّهِمْ", "رَبَّنَا", "رَبِّكَ", "رَبُّكَ", "رَبِّهِمْ", "رَبَّنَا", "رَبِّكَ", "رَبُّكَ","الرَّحمٰنِ","الرَّحيمِ","مٰلِكِ","القُدُّوس","السَّلَام","المُؤْمِن","المُهَيْمِن", "العَزِيز","الجَبَّار","المُتَكَبِّر","الخَالِق","البَارِىء","المُصَوِّر","الغَفَّار", "القَهَّار","الوَهَّاب","الرَّزَّاق","الفَتَّاح","العَلِيم","القَابِض","البָاسِط",
+                     "الخَافِض","الرَّافِع","المُعِزّ","المُذِلّ","السَّمِيع","البَصِير","الحَكَم","العَدْل", "اللَّطِيف","الخَبِير","الحَلِيم","العَظِيم","الغَفُور","الشَّكُور","العَلِيّ","الكَبِير",
+                     "الحَفِيظ","المُقِيت","الحَسِيب","الجَلِيل","الكَرِيم","الرَّقِيب","المُجِيب","الوَاسِع", "الحَكِيم","الوَدُود","المَجِيد","البَاعِث","الشَّهِيد","الحَقّ","الوَكِيل","القَوِيّ",
+                     "المَتِين","الوَلِيّ","الحَمِيد","المُحْصِي","المُبْدِئ","المُعِيد","المُحْيِي","المُمِيت", "الحَيّ","القَيّوم","الوَاجِد","المَاجِد","الوَاحِد","الأَحَد","الصَّمَد","القَادِر",
+                     "المُقْتَدِر","المُقَدِّم","المُؤَخِّر","الأَوَّل","الآخِر","الظَّاهِر","البَاطِن", "الوَالِي","المُتَعَالِي","البَرّ","التَّوَّاب","المُنْتَقِم","العَفُوّ","الرَّؤُوف",
+                     "مَالِكُ المُلْك","ذُو الجَلَال وَالإِكْرَام","المُقْسِط","الجَامِع","الغَنِيّ","المُغْنِي", "المَانِع","الضَّار","النَّافِع","النُّور","الهَادِي","البَدِيع","البَاقِي","الوَارِث", "الرَّشِيد","الصَّبُور"];
+                foreach ($asma_ar as $mot) {
+                    $result = str_replace($mot, "<span style='color:red;'>$mot</span>", $result);
+                }
 
                 echo $result.'</div>';
             }
@@ -286,6 +317,26 @@
             ## Lis la sourate en parallèle
             function read_sourate($num_sourate) {
 
+                // Variables Globales
+                $asma_ar = ["اللَّه", "الرَّحمٰنِ", "الرَّحيمِ","لِلَّهِ", "رَبِّ","رَبَّ", "رَبِّهِمْ", "رَبَّنَا", "رَبِّكَ", "رَبُّكَ", "رَبِّهِمْ", "رَبَّنَا", "رَبِّكَ", "رَبُّكَ","الرَّحمٰنِ","الرَّحيمِ","مٰلِكِ","القُدُّوس","السَّلَام","المُؤْمِن","المُهَيْمِن", "العَزِيز","الجَبَّار","المُتَكَبِّر","الخَالِق","البَارِىء","المُصَوِّر","الغَفَّار", "القَهَّار","الوَهَّاب","الرَّزَّاق","الفَتَّاح","العَلِيم","القَابِض","البָاسِط",
+                        "الخَافِض","الرَّافِع","المُعِزّ","المُذِلّ","السَّمِيع","البَصِير","الحَكَم","العَدْل", "اللَّطِيف","الخَبِير","الحَلِيم","العَظِيم","الغَفُور","الشَّكُور","العَلِيّ","الكَبِير",
+                        "الحَفِيظ","المُقِيت","الحَسِيب","الجَلِيل","الكَرِيم","الرَّقِيب","المُجِيب","الوَاسِع", "الحَكِيم","الوَدُود","المَجِيد","البَاعِث","الشَّهِيد","الحَقّ","الوَكِيل","القَوِيّ",
+                        "المَتِين","الوَلِيّ","الحَمِيد","المُحْصِي","المُبْدِئ","المُعِيد","المُحْيِي","المُمِيت", "الحَيّ","القَيّوم","الوَاجِد","المَاجِد","الوَاحِد","الأَحَد","الصَّمَد","القَادِر",
+                        "المُقْتَدِر","المُقَدِّم","المُؤَخِّر","الأَوَّل","الآخِر","الظَّاهِر","البَاطِن", "الوَالِي","المُتَعَالِي","البَرّ","التَّوَّاب","المُنْتَقِم","العَفُوّ","الرَّؤُوف",
+                        "مَالِكُ المُلْك","ذُو الجَلَال وَالإِكْرَام","المُقْسِط","الجَامِع","الغَنِيّ","المُغْنِي", "المَانِع","الضَّار","النَّافِع","النُّور","الهَادِي","البَدِيع","البَاقِي","الوَارِث", "الرَّشِيد","الصَّبُور", "هُوَ الَّذى", "رَبُّكَ", "إِنّى", "أَنّى"];
+                    
+                $asma_fr = ["Allah","Le Tout Miséricordieux","Le Très Miséricordieux","Le Souverain","Le Très-Saint", "La Paix","Le Garant","Le Protecteur","Le Tout-Puissant","Le Contraignant","Le Suprême",
+                        "Le Créateur","Le Façonneur","Celui qui donne forme","Le Très-Pardonnant", "Le Dominateur absolu","Le Donateur","Le Pourvoyeur","Celui qui accorde la victoire",
+                        "L'Omniscient","Celui qui restreint","Celui qui étend","Celui qui abaisse","Celui qui élève", "Celui qui honore","Celui qui avilit","L'Audient","Le Clairvoyant","Le Juge","Le Juste",
+                        "Le Subtil","Le Parfaitement informé","Le Très-Doux","L'Immense","Le Très-Clément", "Le Très-Reconnaissant","Le Très-Haut","Le Très-Grand","Le Préservateur","Celui qui nourrit",
+                        "Celui qui suffit","Le Majestueux","Le Très-Généreux","Le Vigilant","Celui qui répond","L'Incommensurable","Le Sage","Le Très-Aimant","Le Glorieux","Celui qui ressuscite",
+                        "Le Témoin","La Vérité","Le Garant","Le Très-Fort","Le Robuste","Le Protecteur","Le Digne de louange","Celui qui dénombre","Celui qui fait apparaître","Celui qui redonne vie",
+                        "Celui qui donne la vie","Celui qui donne la mort","Le Vivant","Celui qui subsiste par Lui-même", "Celui qui possède toute chose","Le Noble","L'Unique","L'Un","L'Absolu","Le Tout-Puissant",
+                        "L'Omnipotent","Celui qui avance","Celui qui retarde","Le Premier","Le Dernier","L'Apparent", "Le Caché","Le Maître absolu","Le Très-Élevé","Le Bienfaiteur","Celui qui accepte le repentir",
+                        "Le Vengeur","L'Indulgent","Très-Clément","Maître du Royaume","Détenteur de Majesté et de Générosité", "L'Équitable","Celui qui rassemble","Le Suffisant","Celui qui enrichit","Celui qui empêche",
+                        "Celui qui afflige","Celui qui accorde le bien","La Lumière","Le Guide","L'Incomparable","Le Permanent","L'Héritier","Le Guide vers la droiture","Le Patient", "Seigneur", "C'est Lui", "Je"];
+                    
+
                 $fr = load_coran_french();
                 $ar = load_coran_arabe();
 
@@ -328,6 +379,13 @@
                     </div>';
                 }
 
+                foreach ($asma_fr as $mot) {
+                    $result = str_ireplace($mot, "<span style='color:red;'>$mot</span>", $result);
+                }
+                foreach ($asma_ar as $mot) {
+                    $result = str_ireplace($mot, "<span style='color:red;'>$mot</span>", $result);
+                }
+
                 echo '<div style="padding:15%;">'.$title.$result.'</div>';
             }
 
@@ -359,6 +417,8 @@
 
                 $title = '<div style="font-size:2.25em;color:red;font-weight:bold"> < '.$word.' > dans le coran : '.$number.' fois </div></br>';
                 $style = '<div style="padding:15%;overflow:hidden;position:relative;">';
+
+                $result = str_replace($word, "<span style='color:red;'>$word</span>", $result);
                 echo $style.$title.$result.'</div>';
 
             }
@@ -391,6 +451,7 @@
 
                 $title = '<div style="font-size:2.25em;color:red;font-weight:bold">< '.$word_french.' > dans le coran : '.$number.' fois</div></br>';
                 $style = '<div style="padding:15%;overflow:hidden;position:relative;">';
+                $result = str_replace($word_french, "<span style='color:red;'>$word_french</span>", $result);
                 echo $style.$title.$result.'</div>';
             }
 
@@ -537,6 +598,7 @@
 
                 $title = '<div style="font-size:2.25em;color:red;font-weight:bold">< '.$word_french_jv.'> dans le jardin des vertueux : '.$number.' fois</div></br>';
                 $style = '<div style="padding:15%;overflow:hidden;position:relative;">';
+                $result = str_replace($word_french_jv, "<span style='color:red;'>$word_french_jv</span>", $result);
                 echo $style.$title.$result.'</div>';
             }
 
@@ -656,8 +718,6 @@
                 
                 $title = '<div style="font-size:2.25em;color:red;font-weight:bold">Total of words  in the coran is : '.$number.'</div></br>';
                 echo $style.$title.'</div>';
-
-
             }
             
             ## Function poids des sourates 
