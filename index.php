@@ -1,24 +1,34 @@
-<html>
 
+<html>
 
 <head>
     <title>محلل القرآن - Coran parser</title>
 
     <link rel="stylesheet" href="styles.css">
     <meta charset="UTF-8">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+    .graph-container {
+        width: 100%;
+        overflow-x: auto;
+    }
+    canvas {
+        min-width: 3000px; /* scroll horizontal */
+    }
+    </style>
 </head>
 
 
-<body>
-    
-    <div class=header>
-        <h1 class=titre>Coran parser - محلل القرآن</h1>
+<body> 
+    <div class=header>        
         <!-- <h2 class=titre> اللَّهُ نَزَّلَ أَحسَنَ الحَديثِ كِتٰبًا مُتَشٰبِهًا مَثانِىَ تَقشَعِرُّ مِنهُ جُلودُ الَّذينَ يَخشَونَ رَبَّهُم ثُمَّ تَلينُ جُلودُهُم وَقُلوبُهُم إِلىٰ ذِكرِ اللَّهِ ذٰلِكَ هُدَى اللَّهِ يَهدى بِهِ مَن يَشاءُ وَمَن يُضلِلِ اللَّهُ فَما لَهُ مِن هادٍ </h2> -->
         <div class=marquee-rtl>
+            <h3 class=titre>Coran parser - محلل القرآن</h3>
             <div>Liser et Explorer facilement le coran</div>
+            <img class=logo_grand src='coran_wall_large_paper.jpg' ></br>
         </div>
-    </div>
-    <img class=logo_grand src='coran_wall_large_paper.jpg' ></br>
+        
     <!-- Group of buttons-->
     <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post">
         <!-- Button app python -->
@@ -38,8 +48,8 @@
         <button type="submit" id="read_sourate_arabe" name="read_sourate_arabe" class="search-button">Rechercher</button>
         -->
         <!-- Button find sourate francais-->
-        <input class=button type="submit" id="read_sourate_french" name="read_sourate_french" value="Sourate en francais">
-        <input class=num_sourate_french type="text" id="num_sourate_french" name="num_sourate_french" value="1" size="5">
+        <input class=button type="submit" id="read_sourate" name="read_sourate" value="Sourate en francais">
+        <input class=num_sourate type="text" id="num_sourate" name="num_sourate" value="1" size="5">
 
         <Br/>
         <!-- Button find word or sentence in the coran -->
@@ -58,12 +68,12 @@
         <input class=button type="submit" id="poids_sourates" name="poids_sourates" value="Poids des sourates">
 
     </form>
+    </div>
+    
 
     <div class=parchemin >
         <div class=text_parchemin>
             <?php    
-            // Définir l'encodage en UTF-8 et image type
-            header('Content-Type: text/html; charset=utf-8; image/png');
 
             // Variables Globales
             //$tableau_poids_sourate = [0];
@@ -168,7 +178,7 @@
                         $result = $result.'<div style="font-size:0.85em;color:green">Sourate: '.$line_splits[0].'   Ayyat: '.$line_splits[1].'</div> <div style="font-size:1.85em;color:#0e3c68;font-weight:bold;">'.$line_splits[2].'</div></br>';
 
                         #calcul du poids de la sourate
-                        $poids_sourate+=poids_phrase($line_splits[2]);
+                        #$poids_sourate+=poids_phrase($line_splits[2]);
                     }
                 }
                 $result = $title.$result;
@@ -188,6 +198,137 @@
                     echo "Poids divible par 12 <Br\>";
 
                 echo $result.'</div>';
+            }
+
+            ## Fonction de lecture d'une sourate en arabe et français 
+            function my_read_sourate($num_sourate){
+                # Ouverture des fichiers coran français et arabe
+                $coran_french = fopen('CoranFrancais_clean.txt', 'r');
+                $fh = fopen('quran-uthmani-min.txt', 'r');
+
+                $result ='';
+                $title = '<div style="font-size:1.55em;color:blue;font-weight:bold;">Sourate '.$num_sourate_french.'</div></br></br>';
+
+                while(!feof($coran_french) && !feof($fh)){
+
+                    $line_french =fgets($coran_french);
+                    $line_splits_french = explode(".",$line_french);                    
+
+                    $line_arabe =fgets($fh);
+                    $line_splits_arabe = explode("|",$line_arabe);
+                    
+                    #echo $num_sourate_french; echo "<------->"; echo $line_splits[2];  echo '<br/>';
+                    if( (count($line_splits_french) > 2  && strcmp($line_splits_french[0],$num_sourate)==0) ){
+                        $result = $result.'<div style="font-size:0.85em;color:green">Sourate: '.$line_splits_french[0].'   Ayyat: '.$line_splits_french[1].'</div> <div style="font-size:1.55em;color:#0e3c68;font-weight:bold;">'.$line_splits_french[2].'</div></br>';
+                    }
+                    #echo $num_sourate; echo "<------->"; echo $line_splits[0];  echo '<br/>';
+                    if(strcmp($line_splits_arabe[0],$num_sourate)==0){
+                        $result = $result.'<div style="font-size:0.85em;color:green">Sourate: '.$line_splits_arabe[0].'   Ayyat: '.$line_splits_arabe[1].'</div> <div style="font-size:1.85em;color:#0e3c68;font-weight:bold;">'.$line_splits_arabe[2].'</div></br>';
+
+                    }
+                }
+                $result = $title.$result;
+                $style = '<div style="padding:15%;overflow:hidden;">';
+                echo $style.$result.'</div>';
+
+            }
+
+            ## Charge le coran français dans un tableau
+            function load_coran_french() {
+
+                $data = [];
+                $fh = fopen('CoranFrancais_clean.txt', 'r');
+
+                while (!feof($fh)) {
+                    $line = trim(fgets($fh));
+                    if (!$line) continue;
+
+                    // Format : sourate.ayat.texte
+                    $parts = explode('.', $line, 3);
+                    if (count($parts) < 3) continue;
+
+                    $sourate = (int)$parts[0];
+                    $ayat    = (int)$parts[1];
+                    $text    = $parts[2];
+
+                    $data[$sourate][$ayat] = $text;
+                }
+
+                fclose($fh);
+                return $data;
+            }
+
+            ## Charge le coran arabe dans un tableau 
+            function load_coran_arabe() {
+
+                $data = [];
+                $fh = fopen('quran-uthmani-min.txt', 'r');
+
+                while (!feof($fh)) {
+                    $line = trim(fgets($fh));
+                    if (!$line) continue;
+
+                    // Format : sourate|ayat|texte
+                    $parts = explode('|', $line, 3);
+                    if (count($parts) < 3) continue;
+
+                    $sourate = (int)$parts[0];
+                    $ayat    = (int)$parts[1];
+                    $text    = $parts[2];
+
+                    $data[$sourate][$ayat] = $text;
+                }
+
+                fclose($fh);
+                return $data;
+            }
+
+            ## Lis la sourate en parallèle
+            function read_sourate($num_sourate) {
+
+                $fr = load_coran_french();
+                $ar = load_coran_arabe();
+
+                if (!isset($fr[$num_sourate]) && !isset($ar[$num_sourate])) {
+                    return;
+                }
+
+                $title = '<div style="font-size:1.55em;color:blue;font-weight:bold;">
+                            Sourate '.$num_sourate.'
+                        </div><br><br>';
+
+                $result = '';
+
+                // fusion des ayats existants
+                $ayats = array_unique(array_merge(
+                    array_keys($fr[$num_sourate] ?? []),
+                    array_keys($ar[$num_sourate] ?? [])
+                ));
+                sort($ayats);
+
+                foreach ($ayats as $ayat) {
+
+                    $text_fr = $fr[$num_sourate][$ayat] ?? '';
+                    $text_ar = $ar[$num_sourate][$ayat] ?? '';
+
+                    $result .= '
+                    <div style="margin-bottom:25px;">
+                        <div style="font-size:0.85em;color:green;">
+                            Sourate '.$num_sourate.' — Ayat '.$ayat.'
+                        </div>                        
+
+                        <div style="font-size:1.85em;color:#0e3c68;font-weight:bold;">
+                            '.$text_ar.'
+                        </div>
+                        
+                        <div style="font-size:1.25em;color:#0e3c68;font-family:italic;">
+                            '.$text_fr.'
+                        </div>
+
+                    </div>';
+                }
+
+                echo '<div style="padding:15%;">'.$title.$result.'</div>';
             }
 
             ## Finction search word in the coran
@@ -458,15 +599,12 @@
 
                 // Boucle pour parcourir le dictionnaire de l'alphabet arabe'
                     foreach ($alphabet as $cle => $valeur) {
-                        if (mb_strpos($mot, $cle) !== false) {
-                            #echo "Le caractère '$cle' est présent dans le mot avec la valeur associée : $valeur.\n";
-                            $nbr = substr_count($mot,$cle);
-                            #echo "la lettre ".$cle."apparaît : ".$nbr." fois";
-                            ## calcul du poids
-                            $poids+=$valeur*$nbr;
-                        } else {
-                            ##echo "Le caractère '$mot[$i]' ne correspond pas à '$cle'.\n";
+                        $nbr = substr_count($mot, $cle);
+
+                        if ($nbr > 0) {
+                            $poids += $valeur * $nbr;
                         }
+
                     }
 
                 #echo "Poids du mot .$mot. :.$poids.<Br\>";
@@ -621,6 +759,12 @@
                 imagedestroy($image);
             }
 
+            function goPageGraph(){
+                // Ouvrir la page pageGraph.php
+                include 'pageGraphe.php';
+                exit();
+            }
+
             ## Run python application
             if(!empty($_POST['coran_browser'])){
                 ## Run the coran browser
@@ -640,8 +784,8 @@
             }
 
             ## Find sourate
-            if(!empty($_POST['read_sourate_french'])){
-                read_sourate_french($_POST['num_sourate_french']);
+            if(!empty($_POST['read_sourate'])){
+                read_sourate($_POST['num_sourate']);
             }
 
             ## Find Word in the coran arabe
@@ -662,28 +806,93 @@
             ## Count weight
             if(!empty($_POST['count_words'])){
                 count_words();
-            }
+            }   
+            
+            ## 
+            if(!empty($_POST['poids_sourates'])){
+                goPageGraph();
+            }   
+            
 
             ## Count weight
-            if(!empty($_POST['poids_sourates'])){
-                $donnees = tableau_poids_sourates_coran();
+            // Données pour l'histogramme (valeurs et étiquettes)
+            $donnees = [10140,1818029,1052855,1113491,821878,930389,1050773,375107,735087,534261,535621,495245,238669,263095,179801,556066,471566,494144,280588,385536,350552,363694,342779,413062,291924,390837,333434,397723,273736,268114,155328,110745,376449,253797,244441,216958,259413,227609,364045,359685,236078,244062,253605,96220,153550,191798,180365,182014,101737,107336,116924,93950,106400,118781,128320,124594,189051,131534,129491,99289,62118,60193,53904,79130,89897,86042,102559,91340,84339,71001,75841,66977,67626,87063,49423,74040,72318,53733,60134,47492,40971,26959,57302,33607,33523,17323,26018,31683,48475,20989,19714,29298,13171,13176,10994,21138,7441,28751,17342,14104,10617,11140,5512,6632,6235,6424,9961,3535,4597,6895,6169,1786,9448,5660];
+            $etiquettes = [ "Al-Fatiha (L'Ouverture)","Al-Baqara (La Vache)","Al-Imran (La Famille d'Imran)",
+            "An-Nisa (Les Femmes)","Al-Ma'ida (La Table servie)","Al-An'am (Les Bestiaux)","Al-A'raf (Le Mur d'A'raf)",
+            "Al-Anfal (Le Butin)","At-Tawba (Le Repentir)","Yunus (Jonas)","Hud (Hud)","Yusuf (Joseph)","Ar-Ra'd (Le Tonnerre)",
+            "Ibrahim (Abraham)","Al-Hijr (Al-Hijr)","An-Nahl (Les Abeilles)","Al-Isra (Le Voyage nocturne)","Al-Kahf (La Caverne)",
+            "Maryam (Marie)","Ta-Ha (Ta-Ha)","Al-Anbiya (Les Prophètes)","Al-Hajj (Le Pèlerinage)","Al-Mu’minun (Les Croyants)",
+            "An-Nur (La Lumière)","Al-Furqan (Le Discernement)","Ash-Shu'ara (Les Poètes)","An-Naml (Les Fourmis)","Al-Qasas (Le Récit)",
+            "Al-Ankabut (L'Araignée)","Ar-Rum (Les Romains)","Luqman (Luqman)","As-Sajda (La Prosternation)","Al-Ahzab (Les Coalisés)",
+            "Saba (Saba)","Fatir (Le Créateur)","Ya-Sin (Ya-Sin)","As-Saffat (Les Rangés en Rangs)","Sad (Sad)","Az-Zumar (Les Groupes)",
+            "Ghafir (Le Pardonneur)","Fussilat (Les Versets détaillés)","Ash-Shura (La Consultation)","Az-Zukhruf (Les Ornements)",
+            "Ad-Dukhan (La Fumée)","Al-Jathiya (L'Agenouillée)","Al-Ahqaf (Les Dunes)","Muhammad (Muhammad)",
+            "Al-Fath (La Victoire éclatante)","Al-Hujurat (Les Appartements)","Qaf (Qaf)","Adh-Dhariyat (Qui éparpillent)",
+            "At-Tur (La Montagne)","An-Najm (L'Étoile)","Al-Qamar (La Lune)","Ar-Rahman (Le Tout Miséricordieux)",
+            "Al-Waqi'a (L'Événement)","Al-Hadid (Le Fer)","Al-Mujadila (La Discussion)","Al-Hashr (L'Exode)","Al-Mumtahina (L'Éprouvée)",
+            "As-Saff (Le Rang)","Al-Jumua (Le Vendredi)","Al-Munafiqun (Les Hypocrites)","At-Taghabun (La Grande Perte)",
+            "At-Talaq (Le Divorce)","At-Tahrim (L'Interdiction)","Al-Mulk (La Royauté)","Al-Qalam (La Plume)","Al-Haqqa (La Réalité)",
+            "Al-Ma'arij (Les Voies d'Ascension)","Nuh (Noé)","Al-Jinn (Les Djinns)","Al-Muzzammil (L'Enveloppé)",
+            "Al-Muddathir (Le Revêtu d'un manteau)","Al-Qiyama (La Résurrection)","Al-Insan (L'Homme)","Al-Mursalat (Les Envoyés)",
+            "An-Naba (La Nouvelle)","An-Naziat (Les Anges qui arrachent les âmes)","Abasa (Il s'est renfrogné)",
+            "At-Takwir (L'Obscurcissement)","Al-Infitar (La Rupture)","Al-Mutaffifin (Les Fraudeurs)","Al-Inshiqaq (La Déchirure)",
+            "Al-Buruj (Les Constellations)","At-Tariq (L'Astre Nocturne)","Al-Ala (Le Très Haut)","Al-Ghashiya (L'Écrasante)",
+            "Al-Fajr (L'Aube)","Al-Balad (La Cité)","Ash-Shams (Le Soleil)","Al-Lail (La Nuit)","Ad-Duha (Le Jour Montant)","Ash-Sharh ",
+            "(L'Ouverture)","At-Tin (Le Figuier)","Al-Alaq (L'Adhérence)","Al-Qadr (La Destinée)","Al-Bayyina (La Preuve)",
+            "Az-Zalzalah (Le Tremblement de terre)","Al-Adiyat (Les Coursiers)","Al-Qaria (Le Fracas)",
+            "At-Takathur (La Course aux richesses)","Al-Asr (Le Temps)","Al-Humaza (Les Calomniateurs)","Al-Fil (L'Éléphant)",
+            "Quraysh (Les Quraysh)","Al-Ma'un (L'Ustensile)","Al-Kawthar (L'Abondance)","Al-Kafirun (Les Infidèles)","An-Nasr (Le Secours)",
+            "Al-Masad (Les Fibres)","Al-Ikhlas (Le Monothéisme pur)","Al-Falaq (L'Aube naissante)","An-Nas (Les Hommes)"];
 
-                #$serializedArray = serialize($donnees)
-                // Encoder le tableau en query string
-                $queryString = json_encode(array('data' => $donnees));
-
-                // Créer l'URL avec les paramètres
-                $url = 'pageGraphe.php?' . $queryString;
-
-                #Redirection vers la page de graph
-                header("Location: pageGraphe.php?param1=$url");
-                exit();
-            }
+            // Normalisation des données pour l'affichage
+            $donnees_log = array_map(function($x) {
+                    return round(log10($x), 3);
+                }, $donnees);
 
             ?>
         </div>
-    </div>
+    
 
+        <!--<div style="width:100%; height:3000px; overflow:hidden; position:center">
+            <canvas id="histogramme" height="500"></canvas>
+        </div>-->
+    
+    <script>
+        const ctx = document.getElementById('histogramme').getContext('2d');
+        const histogramme = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: <?php echo json_encode($etiquettes); ?>,
+                datasets: [{
+                    label: 'Poids des sourates du Coran',
+                    data: <?php echo json_encode($donnees_log); ?>,
+                    backgroundColor: 'rgba(54, 163, 235, 0.58)',
+                    borderColor: 'rgba(54, 235, 160, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                animation: false,
+                plugins: {
+                    legend: {
+                        display: false // 🔴 enlever la légende
+                    }
+                },
+                scales: {
+                    x: {
+                        display: false // 🔴 enlever labels X
+                    },
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                responsive: true,
+                maintainAspectRatio: true
+            }
+        });
+    </script>
+
+    </div>
     <div class=footer>
         <img class=logo src='coran_transp.png'>
         <p>@Author: Bah Amadou Oury</p>
