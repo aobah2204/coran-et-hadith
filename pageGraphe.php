@@ -53,153 +53,58 @@
     "Quraysh (Les Quraysh)","Al-Ma'un (L'Ustensile)","Al-Kawthar (L'Abondance)","Al-Kafirun (Les Infidèles)","An-Nasr (Le Secours)",
     "Al-Masad (Les Fibres)","Al-Ikhlas (Le Monothéisme pur)","Al-Falaq (L'Aube naissante)","An-Nas (Les Hommes)"];
 
-    $sourates_names = [
-    "Al-Fatiha",
-    "Al-Baqara",
-    "Al-Imran",
-    "An-Nisa",
-    "Al-Ma'idah",
-    "Al-An'am",
-    "Al-A'raf",
-    "Al-Anfal",
-    "At-Tawbah",
-    "Yunus",
-    "Hud",
-    "Yusuf",
-    "Ar-Ra'd",
-    "Ibrahim",
-    "Al-Hijr",
-    "An-Nahl",
-    "Al-Isra",
-    "Al-Kahf",
-    "Maryam",
-    "Taha",
-    "Al-Anbiya",
-    "Al-Hajj",
-    "Al-Mu’minun",
-    "An-Nur",
-    "Al-Furqan",
-    "Ash-Shu'ara",
-    "An-Naml",
-    "Al-Qasas",
-    "Al-Ankabut",
-    "Ar-Rum",
-    "Luqman",
-    "As-Sajda",
-    "Al-Ahzab",
-    "Saba",
-    "Fatir",
-    "Ya-Sin",
-    "As-Saffat",
-    "Sad",
-    "Az-Zumar",
-    "Ghafir",
-    "Fussilat",
-    "Ash-Shura",
-    "Az-Zukhruf",
-    "Ad-Dukhan",
-    "Al-Jathiyah",
-    "Al-Ahqaf",
-    "Muhammad",
-    "Al-Fath",
-    "Al-Hujurat",
-    "Qaf",
-    "Adh-Dhariyat",
-    "At-Tur",
-    "An-Najm",
-    "Al-Qamar",
-    "Ar-Rahman",
-    "Al-Waqi'ah",
-    "Al-Hadid",
-    "Al-Mujadila",
-    "Al-Hashr",
-    "Al-Mumtahanah",
-    "As-Saff",
-    "Al-Jumu'ah",
-    "Al-Munafiqun",
-    "At-Taghabun",
-    "At-Talaq",
-    "At-Tahrim",
-    "Al-Mulk",
-    "Al-Qalam",
-    "Al-Haqqah",
-    "Al-Ma'arij",
-    "Nuh",
-    "Al-Jinn",
-    "Al-Muzzammil",
-    "Al-Muddaththir",
-    "Al-Qiyamah",
-    "Al-Insan",
-    "Al-Mursalat",
-    "An-Naba",
-    "An-Nazi'at",
-    "Abasa",
-    "At-Takwir",
-    "Al-Infitar",
-    "Al-Mutaffifin",
-    "Al-Inshiqaq",
-    "Al-Buruj",
-    "At-Tariq",
-    "Al-A'la",
-    "Al-Ghashiyah",
-    "Al-Fajr",
-    "Al-Balad",
-    "Ash-Shams",
-    "Al-Layl",
-    "Ad-Duha",
-    "Ash-Sharh",
-    "At-Tin",
-    "Al-Alaq",
-    "Al-Qadr",
-    "Al-Bayyinah",
-    "Az-Zalzalah",
-    "Al-Adiyat",
-    "Al-Qari'ah",
-    "At-Takathur",
-    "Al-Asr",
-    "Al-Humazah",
-    "Al-Fil",
-    "Quraysh",
-    "Al-Ma'un",
-    "Al-Kawthar",
-    "Al-Kafirun",
-    "An-Nasr",
-    "Al-Masad",
-    "Al-Ikhlas",
-    "Al-Falaq",
-    "An-Nas"
-    ];
+    $sourates_names = ["Al-Fatiha", "Al-Baqara", "Al-Imran", "An-Nisa", "Al-Ma'idah", "Al-An'am", "Al-A'raf", "Al-Anfal", "At-Tawbah",
+    "Yunus", "Hud", "Yusuf", "Ar-Ra'd", "Ibrahim", "Al-Hijr", "An-Nahl", "Al-Isra", "Al-Kahf", "Maryam", "Taha", "Al-Anbiya", "Al-Hajj",
+    "Al-Mu'minun", "An-Nur", "Al-Furqan", "Ash-Shu'ara", "An-Naml", "Al-Qasas", "Al-Ankabut", "Ar-Rum", "Luqman", "As-Sajda", "Al-Ahzab",
+    "Saba", "Fatir", "Ya-Sin", "As-Saffat", "Sad", "Az-Zumar", "Ghafir", "Fussilat", "Ash-Shura", "Az-Zukhruf", "Ad-Dukhan", "Al-Jathiyah",
+    "Al-Ahqaf", "Muhammad", "Al-Fath", "Al-Hujurat", "Qaf", "Adh-Dhariyat", "At-Tur", "An-Najm", "Al-Qamar", "Ar-Rahman", "Al-Waqi'ah",
+    "Al-Hadid", "Al-Mujadila", "Al-Hashr", "Al-Mumtahanah", "As-Saff", "Al-Jumu'ah", "Al-Munafiqun", "At-Taghabun", "At-Talaq", "At-Tahrim",
+    "Al-Mulk", "Al-Qalam", "Al-Haqqah", "Al-Ma'arij", "Nuh", "Al-Jinn", "Al-Muzzammil", "Al-Muddaththir", "Al-Qiyamah", "Al-Insan","Al-Mursalat",
+    "An-Naba", "An-Nazi'at", "Abasa", "At-Takwir", "Al-Infitar", "Al-Mutaffifin", "Al-Inshiqaq", "Al-Buruj", "At-Tariq", "Al-A'la", "Al-Ghashiyah",
+    "Al-Fajr", "Al-Balad", "Ash-Shams", "Al-Layl", "Ad-Duha", "Ash-Sharh", "At-Tin", "Al-Alaq", "Al-Qadr", "Al-Bayyinah", "Az-Zalzalah",
+    "Al-Adiyat", "Al-Qari'ah", "At-Takathur", "Al-Asr", "Al-Humazah", "Al-Fil", "Quraysh", "Al-Ma'un", "Al-Kawthar", "Al-Kafirun", "An-Nasr",
+    "Al-Masad", "Al-Ikhlas", "Al-Falaq", "An-Nas" ];
 
-    $versets = [
-    7, 286, 200, 176, 120, 165, 206, 75, 129, 109, 
-    123, 111, 43, 52, 99, 128, 111, 110, 98, 135, 
-    112, 78, 118, 64, 77, 227, 93, 88, 69, 60, 
-    34, 30, 73, 54, 45, 83, 182, 88, 75, 85, 
-    54, 53, 89, 59, 37, 35, 38, 29, 18, 45, 
-    60, 49, 62, 55, 78, 96, 29, 22, 24, 13, 
-    14, 11, 11, 18, 12, 12, 30, 52, 52, 44, 
-    28, 28, 20, 56, 40, 31, 50, 40, 46, 42, 
-    29, 19, 36, 25, 22, 17, 19, 26, 30, 20, 
-    15, 21, 11, 11, 8, 8, 19, 5, 8, 8, 
-    11, 11, 8, 3, 9, 5, 4, 7, 3, 6, 
-    3, 5, 4, 5, 6
-    ];
+    $versets = [ 7, 286, 200, 176, 120, 165, 206, 75, 129, 109, 123, 111, 43, 52, 99, 128, 111, 110, 98, 135, 112, 78, 118, 64, 77, 227, 93, 88, 69, 60,
+     34, 30, 73, 54, 45, 83, 182, 88, 75, 85, 54, 53, 89, 59, 37, 35, 38, 29, 18, 45, 60, 49, 62, 55, 78, 96, 29, 22, 24, 13, 14, 11, 11, 18, 12, 12, 30, 52, 52, 44, 
+    28, 28, 20, 56, 40, 31, 50, 40, 46, 42, 29, 19, 36, 25, 22, 17, 19, 26, 30, 20, 15, 21, 11, 11, 8, 8, 19, 5, 8, 8, 11, 11, 8, 3, 9, 5, 4, 7, 3, 6, 
+    3, 5, 4, 5, 6];
+
+    $groupes = [
+    "Très petites <10" => 0,
+    "Petites 10–50"    => 0,
+    "Moyennes 50–100"  => 0,
+    "Longues 100–200"  => 0,
+    "Très longues >200"=> 0];
+
+    foreach ($versets as $n) {
+        if ($n < 10) $groupes["Très petites <10"]++;
+        elseif ($n < 50) $groupes["Petites 10–50"]++;
+        elseif ($n < 100) $groupes["Moyennes 50–100"]++;
+        elseif ($n < 200) $groupes["Longues 100–200"]++;
+        else $groupes["Très longues >200"]++;
+    }
 
 
     ?>
-    <div style="width:100%; height:50%;">
-        <canvas id="histogramme_poids" height="1500"></canvas>
-    </div>
-
-    <div><h2> Graphes nombres de versets par sourate </h2></div>
-
-    <div style="width:100%; height:50%;">
-        <canvas id="histogramme_versets" height="1500"></canvas>
+    <div style="
+        display:flex;
+        flex-direction:row;
+        justify-content:space-around;
+        align-items:center;
+        width:100%;
+    ">
+        <canvas id="histogramme_poids" style="width:45%; height:2800px;"></canvas>
+        <canvas id="histogramme_versets" style="width:45%; height:2800px;"></canvas>
+        
     </div> 
+    <!--<div style="width:100%; height:80%; align-items:center; overflow:hidden; position:center; margin-top:20px;">
+        <canvas id="histogramme_groupes" height="1500"></canvas>
+    </div> -->
 
     <script>
-        const ctx = document.getElementById('histogramme_poids').getContext('2d');        
-        const histogramme = new Chart(ctx, {
+        const ctx1 = document.getElementById('histogramme_poids').getContext('2d');        
+        const histogramme1 = new Chart(ctx1, {
             type: 'bar',
             options: {
                 indexAxis: 'y'
@@ -240,8 +145,8 @@
     </script>    
 
     <script>
-        const ctx = document.getElementById('histogramme_versets').getContext('2d');
-        const histogramme = new Chart(ctx, {
+        const ctx2 = document.getElementById('histogramme_versets').getContext('2d');
+        const histogramme2 = new Chart(ctx2, {
             type: 'bar',
             options: {
                 indexAxis: 'y'
@@ -251,8 +156,8 @@
                 datasets: [{
                     label: 'Poids des sourates du Coran',
                     data: <?php echo json_encode(array_reverse($versets)); ?>,
-                    backgroundColor: 'rgba(54, 163, 235, 0.9)',
-                    borderColor: 'rgba(54, 235, 160, 1)',
+                    backgroundColor: 'rgba(81, 54, 235, 0.9)',
+                    borderColor: 'rgba(87, 54, 235, 1)',
                     //barThickness: 3,        // 🔥 épaisseur fine (trait)
                     //maxBarThickness: 2,
                     //categoryPercentage: 1.0,  // 🔥 utilise 100% de l’espace
@@ -279,7 +184,33 @@
                 maintainAspectRatio: false
             }
         });
-    </script>    
+    </script>  
+    
+    <script>
+        const ctx3 = document.getElementById('histogramme_groupes').getContext('2d');
+        const histogramme3 = new Chart(ctx3, {
+            type: 'bar',
+            data: {
+                labels: <?php echo json_encode(array_keys($groupes)); ?>,
+                datasets: [{
+                    label: 'Nombre de sourates par groupe de versets',
+                    data: <?php echo json_encode(array_values($groupes)); ?>,
+                    backgroundColor: 'rgba(235, 54, 54, 0.9)',
+                    borderColor: 'rgba(235, 87, 54, 1)',
+                }]
+            },
+            options: {
+                animation: false,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                },
+                responsive: false,
+                maintainAspectRatio: false
+            }
+        });
+    </script>
 
     <div class=footer>
         <img class=logo src='coran_transp.png'>

@@ -695,70 +695,7 @@
                 return $tableau;
             }
 
-            # script chart js
-            function graph($donnees){
-                // Les données du tableau
-                #$donnees = array("Janvier" => 120, "Février" => 80, "Mars" => 200, "Avril" => 160);
-
-                // Paramètres du graphique
-                $largeur = 500;
-                $hauteur = 300;
-                $marge_gauche = 50;
-                $marge_bas = 40;
-                $marge_haut = 20;
-
-                // Créer l'image
-                $image = imagecreate($largeur, $hauteur);
-
-                // Définir les couleurs
-                $blanc = imagecolorallocate($image, 255, 255, 255);
-                $noir = imagecolorallocate($image, 0, 0, 0);
-                $bleu = imagecolorallocate($image, 0, 0, 255);
-
-                // Remplir le fond en blanc
-                imagefill($image, 0, 0, $blanc);
-
-                // Calculer la largeur de chaque barre
-                $nb_barres = count($donnees);
-                $espace_barre = ($largeur - $marge_gauche) / $nb_barres;
-
-                // Trouver la valeur maximale pour l'échelle du graphique
-                $valeur_max = max($donnees);
-
-                // Dessiner les barres
-                $index = 0;
-                foreach ($donnees as $label => $valeur) {
-                    // Calculer la hauteur de la barre proportionnellement à la valeur maximale
-                    $hauteur_barre = round(($valeur / $valeur_max) * ($hauteur - $marge_bas - $marge_haut));
-                    $x1 = round($marge_gauche + $index * $espace_barre + 10);
-                    $y1 = round($hauteur - $marge_bas - $hauteur_barre);
-                    $x2 = round($x1 + $espace_barre - 20);
-                    $y2 = round($hauteur - $marge_bas);
-
-                    // Dessiner la barre
-                    imagefilledrectangle($image, $x1, $y1, $x2, $y2, $bleu);
-
-                    // Ajouter le label en dessous de chaque barre
-                    imagestring($image, 2, $x1 + 5, $hauteur - $marge_bas + 5, $label, $noir);
-
-                    // Ajouter la valeur au-dessus de chaque barre
-                    imagestring($image, 2, $x1 + 5, $y1 - 15, $valeur, $noir);
-
-                    $index++;
-                }
-
-                // Dessiner l'axe des Y
-                imageline($image, $marge_gauche, $hauteur - $marge_bas, $marge_gauche, $marge_haut, $noir);
-
-                // Dessiner l'axe des X
-                imageline($image, $marge_gauche, $hauteur - $marge_bas, $largeur, $hauteur - $marge_bas, $noir);
-
-                // Afficher l'image
-                //header('Content-Type: image/png');
-                imagepng($image);
-                imagedestroy($image);
-            }
-
+            
             function goPageGraph(){
                 // Ouvrir la page pageGraph.php
                 include 'pageGraphe.php';
@@ -814,83 +751,12 @@
             }   
             
 
-            ## Count weight
-            // Données pour l'histogramme (valeurs et étiquettes)
-            $donnees = [10140,1818029,1052855,1113491,821878,930389,1050773,375107,735087,534261,535621,495245,238669,263095,179801,556066,471566,494144,280588,385536,350552,363694,342779,413062,291924,390837,333434,397723,273736,268114,155328,110745,376449,253797,244441,216958,259413,227609,364045,359685,236078,244062,253605,96220,153550,191798,180365,182014,101737,107336,116924,93950,106400,118781,128320,124594,189051,131534,129491,99289,62118,60193,53904,79130,89897,86042,102559,91340,84339,71001,75841,66977,67626,87063,49423,74040,72318,53733,60134,47492,40971,26959,57302,33607,33523,17323,26018,31683,48475,20989,19714,29298,13171,13176,10994,21138,7441,28751,17342,14104,10617,11140,5512,6632,6235,6424,9961,3535,4597,6895,6169,1786,9448,5660];
-            $etiquettes = [ "Al-Fatiha (L'Ouverture)","Al-Baqara (La Vache)","Al-Imran (La Famille d'Imran)",
-            "An-Nisa (Les Femmes)","Al-Ma'ida (La Table servie)","Al-An'am (Les Bestiaux)","Al-A'raf (Le Mur d'A'raf)",
-            "Al-Anfal (Le Butin)","At-Tawba (Le Repentir)","Yunus (Jonas)","Hud (Hud)","Yusuf (Joseph)","Ar-Ra'd (Le Tonnerre)",
-            "Ibrahim (Abraham)","Al-Hijr (Al-Hijr)","An-Nahl (Les Abeilles)","Al-Isra (Le Voyage nocturne)","Al-Kahf (La Caverne)",
-            "Maryam (Marie)","Ta-Ha (Ta-Ha)","Al-Anbiya (Les Prophètes)","Al-Hajj (Le Pèlerinage)","Al-Mu’minun (Les Croyants)",
-            "An-Nur (La Lumière)","Al-Furqan (Le Discernement)","Ash-Shu'ara (Les Poètes)","An-Naml (Les Fourmis)","Al-Qasas (Le Récit)",
-            "Al-Ankabut (L'Araignée)","Ar-Rum (Les Romains)","Luqman (Luqman)","As-Sajda (La Prosternation)","Al-Ahzab (Les Coalisés)",
-            "Saba (Saba)","Fatir (Le Créateur)","Ya-Sin (Ya-Sin)","As-Saffat (Les Rangés en Rangs)","Sad (Sad)","Az-Zumar (Les Groupes)",
-            "Ghafir (Le Pardonneur)","Fussilat (Les Versets détaillés)","Ash-Shura (La Consultation)","Az-Zukhruf (Les Ornements)",
-            "Ad-Dukhan (La Fumée)","Al-Jathiya (L'Agenouillée)","Al-Ahqaf (Les Dunes)","Muhammad (Muhammad)",
-            "Al-Fath (La Victoire éclatante)","Al-Hujurat (Les Appartements)","Qaf (Qaf)","Adh-Dhariyat (Qui éparpillent)",
-            "At-Tur (La Montagne)","An-Najm (L'Étoile)","Al-Qamar (La Lune)","Ar-Rahman (Le Tout Miséricordieux)",
-            "Al-Waqi'a (L'Événement)","Al-Hadid (Le Fer)","Al-Mujadila (La Discussion)","Al-Hashr (L'Exode)","Al-Mumtahina (L'Éprouvée)",
-            "As-Saff (Le Rang)","Al-Jumua (Le Vendredi)","Al-Munafiqun (Les Hypocrites)","At-Taghabun (La Grande Perte)",
-            "At-Talaq (Le Divorce)","At-Tahrim (L'Interdiction)","Al-Mulk (La Royauté)","Al-Qalam (La Plume)","Al-Haqqa (La Réalité)",
-            "Al-Ma'arij (Les Voies d'Ascension)","Nuh (Noé)","Al-Jinn (Les Djinns)","Al-Muzzammil (L'Enveloppé)",
-            "Al-Muddathir (Le Revêtu d'un manteau)","Al-Qiyama (La Résurrection)","Al-Insan (L'Homme)","Al-Mursalat (Les Envoyés)",
-            "An-Naba (La Nouvelle)","An-Naziat (Les Anges qui arrachent les âmes)","Abasa (Il s'est renfrogné)",
-            "At-Takwir (L'Obscurcissement)","Al-Infitar (La Rupture)","Al-Mutaffifin (Les Fraudeurs)","Al-Inshiqaq (La Déchirure)",
-            "Al-Buruj (Les Constellations)","At-Tariq (L'Astre Nocturne)","Al-Ala (Le Très Haut)","Al-Ghashiya (L'Écrasante)",
-            "Al-Fajr (L'Aube)","Al-Balad (La Cité)","Ash-Shams (Le Soleil)","Al-Lail (La Nuit)","Ad-Duha (Le Jour Montant)","Ash-Sharh ",
-            "(L'Ouverture)","At-Tin (Le Figuier)","Al-Alaq (L'Adhérence)","Al-Qadr (La Destinée)","Al-Bayyina (La Preuve)",
-            "Az-Zalzalah (Le Tremblement de terre)","Al-Adiyat (Les Coursiers)","Al-Qaria (Le Fracas)",
-            "At-Takathur (La Course aux richesses)","Al-Asr (Le Temps)","Al-Humaza (Les Calomniateurs)","Al-Fil (L'Éléphant)",
-            "Quraysh (Les Quraysh)","Al-Ma'un (L'Ustensile)","Al-Kawthar (L'Abondance)","Al-Kafirun (Les Infidèles)","An-Nasr (Le Secours)",
-            "Al-Masad (Les Fibres)","Al-Ikhlas (Le Monothéisme pur)","Al-Falaq (L'Aube naissante)","An-Nas (Les Hommes)"];
-
-            // Normalisation des données pour l'affichage
-            $donnees_log = array_map(function($x) {
-                    return round(log10($x), 3);
-                }, $donnees);
-
+            
             ?>
         </div>
     
 
-        <!--<div style="width:100%; height:3000px; overflow:hidden; position:center">
-            <canvas id="histogramme" height="500"></canvas>
-        </div>-->
-    
-    <script>
-        const ctx = document.getElementById('histogramme').getContext('2d');
-        const histogramme = new Chart(ctx, {
-            type: 'bar',
-            data: {
-                labels: <?php echo json_encode($etiquettes); ?>,
-                datasets: [{
-                    label: 'Poids des sourates du Coran',
-                    data: <?php echo json_encode($donnees_log); ?>,
-                    backgroundColor: 'rgba(54, 163, 235, 0.58)',
-                    borderColor: 'rgba(54, 235, 160, 1)',
-                    borderWidth: 1
-                }]
-            },
-            options: {
-                animation: false,
-                plugins: {
-                    legend: {
-                        display: false // 🔴 enlever la légende
-                    }
-                },
-                scales: {
-                    x: {
-                        display: false // 🔴 enlever labels X
-                    },
-                    y: {
-                        beginAtZero: true
-                    }
-                },
-                responsive: true,
-                maintainAspectRatio: true
-            }
-        });
-    </script>
+        
 
     </div>
     <div class=footer>
