@@ -1,9 +1,7 @@
 .header{
     /* background-color: mediumseagreen; */
     /* background-image: url("coran_background_wall_paper.jpg"); */
-    background-image: linear-gradient( rgb(37, 37, 177), black);
-    font-size: x-large;
-    margin-top: -40px;
+    background-image: linear-gradient( rgb(37, 37, 177), black);    
     color: rgba(228, 236, 240, 0.973);
     box-shadow: 0 .25em .5em #CCC,inset 0 0 1em .25em #CCC;
     padding-left: 5%;
@@ -101,7 +99,6 @@ body{
     border: 15px solid rgb(16, 16, 17);
     box-shadow: 0 .25em .5em #CCC,inset 0 0 1em .25em #CCC;
     border-radius: 5px 30px 50px 15px;
-    padding-top: 0.5%;
 }
 
 .parchemin {
@@ -109,19 +106,80 @@ body{
     background-color: sandybrown;
     background-position: center; /* Center the image */
     background-repeat: no-repeat; /* Do not repeat the image */
-    background-size: cover; /* Resize the background image to cover the entire */    
+    background-size: cover; /* Resize the background image to cover the entire */
     position: center;
     margin: 5%;
     border-radius: 5px;
+    margin-top: -18px;
 }
 
 .text_parchemin{
-    margin-top: 5%;
     overflow: scroll; 
     font-family: 'Times New Roman', Times, serif; 
     font-size: large;
     text-align: center;
-    padding: 5%;        
+}
+
+.parchemin_page {    
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.text_page {
+    font-family: "Scheherazade New", serif;
+    direction: rtl;
+    text-align: justify;
+    width: 80%;
+    box-sizing: border-box;
+    font-size: large;
+}
+
+.page-coran {
+    width: 1050px;
+    height: 1400px; /* ratio proche du Mushaf */
+    margin: auto;
+    border: 2px solid #bba;
+    padding: 40px;
+    box-sizing: border-box;
+    border: 25px solid transparent;
+    border-image: url('cadre_mushaf.png') 30 round;
+}
+
+.text-ar {
+    font-family: "Scheherazade New", serif;
+    direction: rtl;
+    text-align: justify;
+    text-align-last: justify;
+    line-height: 1.8;
+    padding: 2%;
+    overflow: hidden;
+    font-size: 43px;
+    color: #0e3c68;
+    font-weight: bold;
+}
+
+.bismillah {
+    font-family: 'Scheherazade New', serif;
+    font-size: 36px;
+    color: green;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.titre-sourate {
+    font-family: "Scheherazade New", serif;
+    font-size: 42px;
+    font-weight: bold;
+    text-align: center;
+    direction: rtl;
+    padding: 20px 0;
+    margin: 10px 0;
+    color: #0e3c68;
+    border-top: 3px solid #0e3c68;
+    border-bottom: 3px solid #0e3c68;
+    letter-spacing: 3px;
 }
 
 /* Style de base pour le champ de recherche */
@@ -157,3 +215,39 @@ body{
 .search-input:focus {
     border-color: #007BFF;
 }
+
+/* Menu */
+.menu-box {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 10px;
+    background: #f3f3f3;
+    border-radius: 10px;
+}
+
+.menu-item {
+    display: flex;
+    gap: 6px;
+}
+
+    .menu-item input {
+        padding: 6px;
+        font-size: 14px;
+        border-radius: 5px;
+        border: solid 1px #999;
+        width: 120px;
+    }
+
+    .menu-item button {
+        padding: 6px 10px;
+        background: #0e3c68;
+        border: none;
+        color: white;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+        .menu-item button:hover {
+            background: #135a9e;
+        }

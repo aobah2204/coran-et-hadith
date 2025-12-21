@@ -25,49 +25,57 @@
         <!-- <h2 class=titre> اللَّهُ نَزَّلَ أَحسَنَ الحَديثِ كِتٰبًا مُتَشٰبِهًا مَثانِىَ تَقشَعِرُّ مِنهُ جُلودُ الَّذينَ يَخشَونَ رَبَّهُم ثُمَّ تَلينُ جُلودُهُم وَقُلوبُهُم إِلىٰ ذِكرِ اللَّهِ ذٰلِكَ هُدَى اللَّهِ يَهدى بِهِ مَن يَشاءُ وَمَن يُضلِلِ اللَّهُ فَما لَهُ مِن هادٍ </h2> -->
         <div class=marquee-rtl>
             <h3 class=titre>Coran parser - محلل القرآن</h3>
-            <div>Liser et Explorer facilement le coran</div>
-            <img class=logo_grand src='coran_wall_large_paper.jpg' ></br>
+            <!--<div>Liser et Explorer facilement le coran</div>
+            <img class=logo_grand src='coran_wall_large_paper.jpg' ></br>-->
         </div>
         
-    <!-- Group of buttons-->
-    <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post">
-        <!-- Button app python -->
-        <!-- <input class=button type="submit" id="coran_browser" name="coran_browser" value="Coran Browser">  -->
-        <!-- Button read coran -->
-        <!-- <input class=button type="submit" id="read_coran" name="read_coran" value="Show all coran"> -->
-        <!-- Button count weight -->
-        <!-- <input class=button type="submit" id="count_words" name="count_words" value="Count words"> -->
+        <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post">
+            <div class="menu-box">
 
-       
-        <!-- Button find sourate arabe-->
-        <input class=button type="submit" id="read_sourate_arabe" name="read_sourate_arabe" value="Sourate en arabe">
-        <input class=num_sourate_arabe type="text" id="num_sourate_arabe" name="num_sourate_arabe" value="1" size="5"> 
+              <div class="menu-item">
+                <!--<input type="number" placeholder="Page (1-604)" id="in_page">
+                <button onclick="goPage()">Page</button>-->
+                <input class=button type="submit" id="page_coran" name="page_coran" value="Go page">
+                <input type="number" step="1" min="1" max="604" id="num_page" name="num_page" value="1" size="5" placeholder="Page (1-604)">
+              </div>
 
-        <!--
-        <input type="text" placeholder="Rechercher..." id="num_sourate_arabe" name="num_sourate_arabe" value="1" size="5" class="search-input">
-        <button type="submit" id="read_sourate_arabe" name="read_sourate_arabe" class="search-button">Rechercher</button>
-        -->
-        <!-- Button find sourate francais-->
-        <input class=button type="submit" id="read_sourate" name="read_sourate" value="Sourate en francais">
-        <input class=num_sourate type="text" id="num_sourate" name="num_sourate" value="1" size="5">
+              <div class="menu-item">
+                <input class=button type="submit" id="read_sourate_arabe" name="read_sourate_arabe" value="Sourate en arabe">
+                <input class=num_sourate_arabe type="text" id="num_sourate_arabe" name="num_sourate_arabe" value="1" size="5" placeholder="Sourate (1-114)"> 
+                <!--<input type="number" placeholder="Sourate (1-114)" id="in_sourate">
+                <button onclick="goSourate()">Sourate</button>-->
+              </div>
 
-        <Br/>
-        <!-- Button find word or sentence in the coran -->
-        <input class=button type="submit" id="find_words" name="find_words" value="Coran en arabe">
-        <input class=word_to_find type="text" id="word" name="word" placeholder="اللَّه">
+              <div class="menu-item">
+                <input class=button type="submit" id="find_words" name="find_words" value="Coran en arabe">
+                <input class=word_to_find type="text" id="word" name="word" placeholder="اللَّه">
+                <!--<input type="number" placeholder="Verset" id="in_ayah">
+                <button onclick="goAyah()">Verset</button>-->
+              </div>
 
-        <!-- Button find word or sentence in the coran -->
-        <input class=button type="submit" id="find_words_french" name="find_words_french" value="Coran en français">
-        <input class=word_to_find type="text" id="word_french" name="word_french" placeholder="Créateur">
+              <div class="menu-item">
+                <!--<input type="text" placeholder="Recherche mot" id="in_search">
+                <button onclick="searchWord()">Chercher</button>-->
+                <input class=button type="submit" id="find_words_french" name="find_words_french" value="Coran en français">
+                <input class=word_to_find type="text" id="word_french" name="word_french" placeholder="Créateur">
+              </div>
 
-        <!-- Button pour rechercher dans le jardin des vertueux -->
-        <input class=button type="submit" id="find_words_french_jv" name="find_words_french_jv" value="Hadith">
-        <input class=word_to_find type="text" id="word_french_jv" name="word_french_jv" placeholder="Créateur">
+              <div class="menu-item">
+                <!--<input type="number" placeholder="Juz (1-30)" id="in_juz">
+                <button onclick="goJuz()">Juz</button>-->
+                <input class=button type="submit" id="find_words_french_jv" name="find_words_french_jv" value="Hadith">
+                <input class=word_to_find type="text" id="word_french_jv" name="word_french_jv" placeholder="Créateur">
+              </div>
 
-        <!-- Poids des mots  -->
-        <input class=button type="submit" id="poids_sourates" name="poids_sourates" value="Poids des sourates">
+              <div class="menu-item">
+                <!--<input type="number" placeholder="Hizb (1-60)" id="in_hizb">
+                <button onclick="goHizb()">Hizb</button>-->
+                <!-- Poids des mots  -->
+                <input class=button type="submit" id="poids_sourates" name="poids_sourates" value="Poids des sourates">
+              </div>
 
-    </form>
+            </div>
+        </form>    
     </div>
     
 
@@ -186,36 +194,159 @@
             function read_sourate_arabe($num_sourate_arabe){
                 $fh = fopen('quran-uthmani-min.txt', 'r');
                 $result ='';
-                $title = '<div style="font-size:1.55em;color:blue;font-weight:bold;">Sourate '.$num_sourate_arabe.'</div></br></br>';
+                #$title = '<div style="font-size:1.55em;color:blue;font-weight:bold;">Sourate '.$num_sourate_arabe.'</div></br></br>';
                 $poids_sourate = 0;
+                $sourates_ar = [
+                  "سورة الفاتحة",
+                  "سورة البقرة",
+                  "سورة آل عمران",
+                  "سورة النساء",
+                  "سورة المائدة",
+                  "سورة الأنعام",
+                  "سورة الأعراف",
+                  "سورة الأنفال",
+                  "سورة التوبة",
+                  "سورة يونس",
+                  "سورة هود",
+                  "سورة يوسف",
+                  "سورة الرعد",
+                  "سورة إبراهيم",
+                  "سورة الحجر",
+                  "سورة النحل",
+                  "سورة الإسراء",
+                  "سورة الكهف",
+                  "سورة مريم",
+                  "سورة طه",
+                  "سورة الأنبياء",
+                  "سورة الحج",
+                  "سورة المؤمنون",
+                  "سورة النور",
+                  "سورة الفرقان",
+                  "سورة الشعراء",
+                  "سورة النمل",
+                  "سورة القصص",
+                  "سورة العنكبوت",
+                  "سورة الروم",
+                  "سورة لقمان",
+                  "سورة السجدة",
+                  "سورة الأحزاب",
+                  "سورة سبإ",
+                  "سورة فاطر",
+                  "سورة يس",
+                  "سورة الصافات",
+                  "سورة ص",
+                  "سورة الزمر",
+                  "سورة غافر",
+                  "سورة فصلت",
+                  "سورة الشورى",
+                  "سورة الزخرف",
+                  "سورة الدخان",
+                  "سورة الجاثية",
+                  "سورة الأحقاف",
+                  "سورة محمد",
+                  "سورة الفتح",
+                  "سورة الحجرات",
+                  "سورة ق",
+                  "سورة الذاريات",
+                  "سورة الطور",
+                  "سورة النجم",
+                  "سورة القمر",
+                  "سورة الرحمن",
+                  "سورة الواقعة",
+                  "سورة الحديد",
+                  "سورة المجادلة",
+                  "سورة الحشر",
+                  "سورة الممتحنة",
+                  "سورة الصف",
+                  "سورة الجمعة",
+                  "سورة المنافقون",
+                  "سورة التغابن",
+                  "سورة الطلاق",
+                  "سورة التحريم",
+                  "سورة الملك",
+                  "سورة القلم",
+                  "سورة الحاقة",
+                  "سورة المعارج",
+                  "سورة نوح",
+                  "سورة الجن",
+                  "سورة المزمل",
+                  "سورة المدثر",
+                  "سورة القيامة",
+                  "سورة الإنسان",
+                  "سورة المرسلات",
+                  "سورة النبإ",
+                  "سورة النازعات",
+                  "سورة عبس",
+                  "سورة التكوير",
+                  "سورة الانفطار",
+                  "سورة المطففين",
+                  "سورة الانشقاق",
+                  "سورة البروج",
+                  "سورة الطارق",
+                  "سورة الأعلى",
+                  "سورة الغاشية",
+                  "سورة الفجر",
+                  "سورة البلد",
+                  "سورة الشمس",
+                  "سورة الليل",
+                  "سورة الضحى",
+                  "سورة الشرح",
+                  "سورة التين",
+                  "سورة العلق",
+                  "سورة القدر",
+                  "سورة البينة",
+                  "سورة الزلزلة",
+                  "سورة العاديات",
+                  "سورة القارعة",
+                  "سورة التكاثر",
+                  "سورة العصر",
+                  "سورة الهمزة",
+                  "سورة الفيل",
+                  "سورة قريش",
+                  "سورة الماعون",
+                  "سورة الكوثر",
+                  "سورة الكافرون",
+                  "سورة النصر",
+                  "سورة المسد",
+                  "سورة الإخلاص",
+                  "سورة الفلق",
+                  "سورة الناس"
+                ];
+
+                $title = '<div class="titre-sourate">'.$sourates_ar[$num_sourate_arabe-1].'</div>';
+                $result = "<div style='font-size:2.85em;color:#0e3c68;font-weight:bold; text-align: justify; text-align-last: justify;'>";
 
                 while(!feof($fh)){
                     $line =fgets($fh);
                     $line_splits = explode("|",$line);
                     
                     #echo $num_sourate; echo "<------->"; echo $line_splits[0];  echo '<br/>';
+                    
                     if(strcmp($line_splits[0],$num_sourate_arabe)==0){
-                        $result = $result.'<div style="font-size:0.85em;color:green">Sourate: '.$line_splits[0].'   Ayyat: '.$line_splits[1].'</div> <div style="font-size:1.85em;color:#0e3c68;font-weight:bold;">'.$line_splits[2].'</div></br>';
-
+                        #$result = $result.'<div style="font-size:0.85em;color:green">Sourate: '.$line_splits[0].'   Ayyat: '.$line_splits[1].'</div> <div style="font-size:1.85em;color:#0e3c68;font-weight:bold;">'.$line_splits[2].'</div></br>';
+                        $num_ayah = trim($line_splits[1]); // numéro du verset
+                        $result .= $line_splits[2] ."<span style='color:blue; font-size:0.65em;color:#0e00ff;font-weight:bold; font-family:Scheherazade New, serif;direction:rtl;'> ﴿".$num_ayah."﴾ </span>";
                         #calcul du poids de la sourate
                         #$poids_sourate+=poids_phrase($line_splits[2]);
                     }
                 }
+                $result .="</div>";
+
                 $result = $title.$result;
-                $style = '<div style="padding:15%;overflow:hidden;">';
+                $style = "<div style='padding:15%;overflow:hidden; font-size:0.85em;color:#0e3c68;font-weight:bold; font-family:Scheherazade New, serif;direction:rtl;'>";
                 echo $style.'<Br/>Poids de la sourate : '.$poids_sourate.'<Br/>';
 
                 # Divible par 19 ?
                 if($poids_sourate % 19 === 0)
-                    echo "Poids divible par 19 <Br\>";
+                    echo "Poids divible par 19 <Br/>";
 
                 # Divible par 7 ?
                 if($poids_sourate % 7 === 0)
-                    echo "Poids divible par 7 <Br\>";
+                    echo "Poids divible par 7 <Br/>";
 
                 # Divible par 12 ?
                 if($poids_sourate % 12 === 0)
-                    echo "Poids divible par 12 <Br\>";
+                    echo "Poids divible par 12 <Br/>";
 
                 $mots = [];
                 $asma_ar = ["اللَّه", "لِلَّهِ", "رَبِّ","رَبَّ", "رَبِّهِمْ", "رَبَّنَا", "رَبِّكَ", "رَبُّكَ", "رَبِّهِمْ", "رَبَّنَا", "رَبِّكَ", "رَبُّكَ","الرَّحمٰنِ","الرَّحيمِ","مٰلِكِ","القُدُّوس","السَّلَام","المُؤْمِن","المُهَيْمِن", "العَزِيز","الجَبَّار","المُتَكَبِّر","الخَالِق","البَارِىء","المُصَوِّر","الغَفَّار", "القَهَّار","الوَهَّاب","الرَّزَّاق","الفَتَّاح","العَلِيم","القَابِض","البָاسِط",
@@ -228,6 +359,12 @@
                     $result = str_replace($mot, "<span style='color:red;'>$mot</span>", $result);
                 }
 
+                $bismillah_list = ["بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ","بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ", "بِسمِ اللَّهِ الرَّحمٰنِ الرَّحيمِ"];
+
+                foreach ($bismillah_list as $bismillahi){
+                    $result = str_replace($bismillahi, "<span class='bismillah'>".$bismillahi."</span>", $result );
+                } 
+                
                 echo $result.'</div>';
             }
 
@@ -628,31 +765,31 @@
                 "ا" => 1,
                 "ب" => 2,
                 "ج" => 3,
-"د" => 4,
+                "د" => 4,
                 "ه" => 5,
                 "و" => 6,
                 "ز" => 7,
-                          "ح" => 8,
-   "ط" => 9,
+                "ح" => 8,
+                "ط" => 9,
                 "ي" => 10,
                 "ك" => 20,
-"ل" => 30,
+                "ل" => 30,
                 "م" => 40,
                 "ن" => 50,
                 "س" => 60,
-                          "ع" => 70,
-  "ف" => 80,
+                "ع" => 70,
+                "ف" => 80,
                 "ص" => 90,
-"ق" => 100,
+                "ق" => 100,
                 "ر" => 200,
                 "ش" => 300,
                 "ت" => 400,
-                          "ث" => 500,
- "خ" => 600,
-                          "ذ" => 700,
-  "ض" => 800,
+                "ث" => 500,
+                "خ" => 600,
+                "ذ" => 700,
+                "ض" => 800,
                 "ظ" => 900,
-"غ" => 1000,
+                "غ" => 1000,
                            );
                 // Longueur du mot
                 $longueur = strlen($mot);
@@ -762,6 +899,12 @@
                 exit();
             }
 
+            function goPageCoran(){
+                // Ouvrir la page Coran_page.php
+                include 'Coran_page.php';
+                exit();
+            }
+
             ## Run python application
             if(!empty($_POST['coran_browser'])){
                 ## Run the coran browser
@@ -805,12 +948,15 @@
                 count_words();
             }   
             
-            ## 
+            ## goPageGraph 
             if(!empty($_POST['poids_sourates'])){
                 goPageGraph();
             }   
             
-
+            ## goPageCoran
+            if(!empty($_POST['page_coran'])){
+                goPageCoran();
+            } 
             
             ?>
         </div>
