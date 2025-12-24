@@ -109,7 +109,7 @@
             function read_coran(){
                 $fh = fopen('quran-uthmani-min.txt', 'r');
                 $result = '';
-                $style = '<div style="padding:15%;overflow:hidden;">';
+                $style = '<div style="padding-left:15%; padding-right:15%;;overflow:hidden;">';
                 while(!feof($fh)){
                     $line = fgets($fh);
                     $line_splits = explode("|",$line);
@@ -138,7 +138,7 @@
                     }
                 }
                 $result = $title.$result;
-                $style = '<div style="padding:15%;overflow:hidden;">';
+                $style = '<div style="padding-left:15%; padding-right:15%;;overflow:hidden;">';
 
                 foreach ($asma_fr as $mot) {
                     $result = str_replace($mot, "<span style='color:red;'>$mot</span>", $result);
@@ -393,7 +393,7 @@
                     }
                 }
                 $result = $title.$result;
-                $style = '<div style="padding:15%;overflow:hidden;">';
+                $style = '<div style="padding-left:15%; padding-right:15%;overflow:hidden;">';
                 echo $style.$result.'</div>';
 
             }
@@ -520,7 +520,7 @@
                     $result = str_ireplace($mot, "<span style='color:red;'>$mot</span>", $result);
                 }
 
-                echo '<div style="padding:15%;">'.$title.$result.'</div>';
+                echo '<div style="padding-left:15%; padding-right:15%;">'.$title.$result.'</div>';
             }
 
             ## Finction search word in the coran
@@ -550,7 +550,7 @@
                 }
 
                 $title = '<div style="font-size:2.25em;color:red;font-weight:bold"> < '.$word.' > dans le coran : '.$number.' fois </div></br>';
-                $style = '<div style="padding:15%;overflow:hidden;position:relative;">';
+                $style = '<div style="padding-left:15%; padding-right:15%;overflow:hidden;position:relative;">';
 
                 $result = str_replace($word, "<span style='color:red;'>$word</span>", $result);
                 echo $style.$title.$result.'</div>';
@@ -584,7 +584,7 @@
                 }
 
                 $title = '<div style="font-size:2.25em;color:red;font-weight:bold">< '.$word_french.' > dans le coran : '.$number.' fois</div></br>';
-                $style = '<div style="padding:15%;overflow:hidden;position:relative;">';
+                $style = '<div style="padding-left:15%; padding-right:15%;overflow:hidden;position:relative;">';
                 $result = str_replace($word_french, "<span style='color:red;'>$word_french</span>", $result);
                 echo $style.$title.$result.'</div>';
             }
@@ -840,7 +840,7 @@
                 $fh = fopen('quran-uthmani-min.txt', 'r');
                 $result ='';
                 $number=0;
-                $style = '<div style="padding:15%;overflow:hidden;position:relative;">';
+                $style = '<div style="padding-left:15%; padding-right:15%;;overflow:hidden;position:relative;">';
                 
                 while(!feof($fh)){
                     $line =fgets($fh);
