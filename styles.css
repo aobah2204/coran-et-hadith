@@ -118,6 +118,7 @@ body{
     font-family: 'Times New Roman', Times, serif; 
     font-size: large;
     text-align: center;
+    margin-top: -20px;
 }
 
 .parchemin_page {    
@@ -137,8 +138,8 @@ body{
 }
 
 .page-coran {
-    width: 1050px;
-    height: 1400px; /* ratio proche du Mushaf */
+    width: 1150px;
+    /* height: 1400px;  ratio proche du Mushaf */
     margin: auto;
     border: 2px solid #bba;
     padding: 40px;
@@ -148,6 +149,19 @@ body{
 }
 
 .text-ar {
+    font-family: "Scheherazade New", serif;
+    direction: rtl;
+    text-align: justify;
+    text-align-last: justify;
+    line-height: 1.8;
+    padding: 2%;
+    overflow: hidden;
+    font-size: 43px;
+    color: #0e3c68;
+    font-weight: bold;
+}
+
+.text-parchemin {
     font-family: "Scheherazade New", serif;
     direction: rtl;
     text-align: justify;

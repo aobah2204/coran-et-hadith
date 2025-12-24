@@ -80,7 +80,7 @@
     
 
     <div class=parchemin >
-        <div class=text_parchemin>
+        <div class=text_ar>
             <?php    
 
             // Variables Globales
@@ -195,6 +195,7 @@
                 $fh = fopen('quran-uthmani-min.txt', 'r');
                 $result ='';
                 #$title = '<div style="font-size:1.55em;color:blue;font-weight:bold;">Sourate '.$num_sourate_arabe.'</div></br></br>';
+                $style = "";
                 $poids_sourate = 0;
                 $sourates_ar = [
                   "سورة الفاتحة",
@@ -314,7 +315,7 @@
                 ];
 
                 $title = '<div class="titre-sourate">'.$sourates_ar[$num_sourate_arabe-1].'</div>';
-                $result = "<div style='font-size:2.85em;color:#0e3c68;font-weight:bold; text-align: justify; text-align-last: justify;'>";
+                $result = "<div class='page_coran'><div style='padding-left:15%; padding-right:15%; overflow:hidden; font-size:2.85em;color:#0e3c68;font-weight:bold; font-family:Scheherazade New, serif;direction:rtl; text-align:justify; text-align-last: justify;'>";
 
                 while(!feof($fh)){
                     $line =fgets($fh);
@@ -325,15 +326,15 @@
                     if(strcmp($line_splits[0],$num_sourate_arabe)==0){
                         #$result = $result.'<div style="font-size:0.85em;color:green">Sourate: '.$line_splits[0].'   Ayyat: '.$line_splits[1].'</div> <div style="font-size:1.85em;color:#0e3c68;font-weight:bold;">'.$line_splits[2].'</div></br>';
                         $num_ayah = trim($line_splits[1]); // numéro du verset
-                        $result .= $line_splits[2] ."<span style='color:blue; font-size:0.65em;color:#0e00ff;font-weight:bold; font-family:Scheherazade New, serif;direction:rtl;'> ﴿".$num_ayah."﴾ </span>";
+                        $result .= $line_splits[2] ." ﴿".$num_ayah."﴾ ";
                         #calcul du poids de la sourate
-                        #$poids_sourate+=poids_phrase($line_splits[2]);
+                        $poids_sourate+=poids_phrase($line_splits[2]);
                     }
                 }
-                $result .="</div>";
+                $result .="</div></div>";
 
                 $result = $title.$result;
-                $style = "<div style='padding:15%;overflow:hidden; font-size:0.85em;color:#0e3c68;font-weight:bold; font-family:Scheherazade New, serif;direction:rtl;'>";
+
                 echo $style.'<Br/>Poids de la sourate : '.$poids_sourate.'<Br/>';
 
                 # Divible par 19 ?
@@ -348,24 +349,20 @@
                 if($poids_sourate % 12 === 0)
                     echo "Poids divible par 12 <Br/>";
 
-                $mots = [];
-                $asma_ar = ["اللَّه", "لِلَّهِ", "رَبِّ","رَبَّ", "رَبِّهِمْ", "رَبَّنَا", "رَبِّكَ", "رَبُّكَ", "رَبِّهِمْ", "رَبَّنَا", "رَبِّكَ", "رَبُّكَ","الرَّحمٰنِ","الرَّحيمِ","مٰلِكِ","القُدُّوس","السَّلَام","المُؤْمِن","المُهَيْمِن", "العَزِيز","الجَبَّار","المُتَكَبِّر","الخَالِق","البَارِىء","المُصَوِّر","الغَفَّار", "القَهَّار","الوَهَّاب","الرَّزَّاق","الفَتَّاح","العَلِيم","القَابِض","البָاسِط",
-                     "الخَافِض","الرَّافِع","المُعِزّ","المُذِلّ","السَّمِيع","البَصِير","الحَكَم","العَدْل", "اللَّطِيف","الخَبِير","الحَلِيم","العَظِيم","الغَفُور","الشَّكُور","العَلِيّ","الكَبِير",
-                     "الحَفِيظ","المُقِيت","الحَسِيب","الجَلِيل","الكَرِيم","الرَّقِيب","المُجِيب","الوَاسِع", "الحَكِيم","الوَدُود","المَجِيد","البَاعِث","الشَّهِيد","الحَقّ","الوَكِيل","القَوِيّ",
-                     "المَتِين","الوَلِيّ","الحَمِيد","المُحْصِي","المُبْدِئ","المُعِيد","المُحْيِي","المُمِيت", "الحَيّ","القَيّوم","الوَاجِد","المَاجِد","الوَاحِد","الأَحَد","الصَّمَد","القَادِر",
-                     "المُقْتَدِر","المُقَدِّم","المُؤَخِّر","الأَوَّل","الآخِر","الظَّاهِر","البَاطِن", "الوَالِي","المُتَعَالِي","البَرّ","التَّوَّاب","المُنْتَقِم","العَفُوّ","الرَّؤُوف",
-                     "مَالِكُ المُلْك","ذُو الجَلَال وَالإِكْرَام","المُقْسِط","الجَامِع","الغَنِيّ","المُغْنِي", "المَانِع","الضَّار","النَّافِع","النُّور","الهَادِي","البَدِيع","البَاقِي","الوَارِث", "الرَّشِيد","الصَّبُور"];
+                $bismillah_list = ["بِسمِ اللَّهِ الرَّحمٰنِ الرَّحيمِ","بِسمِ اللَّهِ الرَّحمٰنِ الرَّحيمِ"];
+
+                foreach ($bismillah_list as $bismillahi){
+                    $result = str_replace($bismillahi, "<span style='color:red;>".$bismillahi."</span></br>", $result );
+                } 
+
+                $asma_ar = ["اللَّهِ","الرَّحمٰنِ ","الرَّحيمِ ","اللَّهَ ", "اللَّهُ"];
                 foreach ($asma_ar as $mot) {
                     $result = str_replace($mot, "<span style='color:red;'>$mot</span>", $result);
                 }
 
-                $bismillah_list = ["بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ","بِسْمِ اللَّهِ الرَّحْمَٰنِ الرَّحِيمِ", "بِسمِ اللَّهِ الرَّحمٰنِ الرَّحيمِ"];
-
-                foreach ($bismillah_list as $bismillahi){
-                    $result = str_replace($bismillahi, "<span class='bismillah'>".$bismillahi."</span>", $result );
-                } 
                 
-                echo $result.'</div>';
+                
+                echo $style.$result.'</div>';
             }
 
             ## Fonction de lecture d'une sourate en arabe et français 
@@ -734,7 +731,7 @@
                 }
 
                 $title = '<div style="font-size:2.25em;color:red;font-weight:bold">< '.$word_french_jv.'> dans le jardin des vertueux : '.$number.' fois</div></br>';
-                $style = '<div style="padding:15%;overflow:hidden;position:relative;">';
+                $style = '<div style="padding-left:15%; padding-right:15%;overflow:hidden;position:relative;">';
                 $result = str_replace($word_french_jv, "<span style='color:red;'>$word_french_jv</span>", $result);
                 echo $style.$title.$result.'</div>';
             }
@@ -761,35 +758,35 @@
             function poids_mot($mot){
 
                 // Création d'un dictionnaire 
-            $alphabet = array(
-                "ا" => 1,
-                "ب" => 2,
-                "ج" => 3,
-                "د" => 4,
-                "ه" => 5,
-                "و" => 6,
-                "ز" => 7,
-                "ح" => 8,
-                "ط" => 9,
-                "ي" => 10,
-                "ك" => 20,
-                "ل" => 30,
-                "م" => 40,
-                "ن" => 50,
-                "س" => 60,
-                "ع" => 70,
-                "ف" => 80,
-                "ص" => 90,
-                "ق" => 100,
-                "ر" => 200,
-                "ش" => 300,
-                "ت" => 400,
-                "ث" => 500,
-                "خ" => 600,
-                "ذ" => 700,
-                "ض" => 800,
-                "ظ" => 900,
-                "غ" => 1000,
+                $alphabet = array(
+                    "ا" => 1,
+                    "ب" => 2,
+                    "ج" => 3,
+                    "د" => 4,
+                    "ه" => 5,
+                    "و" => 6,
+                    "ز" => 7,
+                    "ح" => 8,
+                    "ط" => 9,
+                    "ي" => 10,
+                    "ك" => 20,
+                    "ل" => 30,
+                    "م" => 40,
+                    "ن" => 50,
+                    "س" => 60,
+                    "ع" => 70,
+                    "ف" => 80,
+                    "ص" => 90,
+                    "ق" => 100,
+                    "ر" => 200,
+                    "ش" => 300,
+                    "ت" => 400,
+                    "ث" => 500,
+                    "خ" => 600,
+                    "ذ" => 700,
+                    "ض" => 800,
+                    "ظ" => 900,
+                    "غ" => 1000,
                            );
                 // Longueur du mot
                 $longueur = strlen($mot);
@@ -960,9 +957,6 @@
             
             ?>
         </div>
-    
-
-        
 
     </div>
     <div class=footer>
