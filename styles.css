@@ -37,9 +37,36 @@
     }
 }
 
-.footer{
-    font-size: small;
+.footer {
+    color: #fff;
+    padding: 30px 15px;
+    text-align: center;
 }
+
+.footer-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.footer-link {
+    color: #0a66c2;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+    .footer-link:hover {
+        text-decoration: underline;
+    }
+
+@media (min-width: 600px) {
+    .footer-content {
+        flex-direction: row;
+        justify-content: center;
+        gap: 30px;
+    }
+}
+
 
 .titre{
     text-align: center;
@@ -146,6 +173,7 @@ body{
     box-sizing: border-box;
     border: 25px solid transparent;
     border-image: url('cadre_mushaf.png') 30 round;
+    background-color: sandybrown;
 }
 
 .text-ar {
@@ -265,3 +293,16 @@ body{
         .menu-item button:hover {
             background: #135a9e;
         }
+
+#page-number {
+    width: fit-content;
+    margin: 15px auto;
+    padding: 8px 20px;
+    font-size: 20px;
+    font-weight: bold;
+    direction: rtl;
+    border-radius: 8px;
+    background-color: #f5f5f5;
+    border: 2px solid #ccc;
+    text-align: center;
+}
