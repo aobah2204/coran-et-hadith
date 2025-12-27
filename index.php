@@ -277,7 +277,7 @@
                 <label for="page">📄 Page :</label>
 
                 <select name="page"
-                        id="page"
+                        id="page" 
                         onchange="this.form.submit()">
 
                     <?php for ($i = 0; $i <= 604; $i++): ?>
@@ -1434,27 +1434,28 @@
             ## goPageCoran
             if(!empty($_POST['page_coran'])){
                 goPageCoran();
-            }                   
-            
+            } 
             ?>
+        </div>
+
+        <div class="page-coran" id="page-coran">
+            <div class="text-ar">
+                <?php                
+                
+                    ## goPageCoran
+                    if(!empty($_POST['page'])){
+                          $page = intval($_POST['page']);
+                          if ($page < 1) $page = 1;
+                          if ($page > 604) $page = 604;
+                          read_coran_page($page);
+                    } 
+                  
+                ?>   
+            </div>      
         </div>
     </div>
 
-    <div class="page-coran" id="page-coran">
-        <div class="text-ar">
-            <?php                
-                
-                ## goPageCoran
-                if(!empty($_POST['page'])){
-                      $page = intval($_POST['page']);
-                      if ($page < 1) $page = 1;
-                      if ($page > 604) $page = 604;
-                      read_coran_page($page);
-                } 
-                  
-            ?>   
-        </div>      
-    </div>
+    
 
     <div class=footer>
         <img class=logo src='coran_transp.png'>
