@@ -5,8 +5,11 @@
     <title>محلل القرآن - Coran parser</title>
 
     <link rel="stylesheet" href="styles.css">
-    <meta charset="UTF-8">
+    <meta charset="UTF-8">    
+    <link href="https://fonts.googleapis.com/css2?family=Scheherazade+New:wght@700&display=swap" rel="stylesheet">
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 
     <style>
     .graph-container {
@@ -270,86 +273,72 @@
         
         ?>
         <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post">
-            <div class="menu-box">
 
-              <div class="menu-item">
-                
-                <label for="page">📄 Page :</label>
+            <!-- SECTION 1 : NAVIGATION & SOURATES -->
+            <div class="menu-card">
 
-                <select name="page"
-                        id="page" 
-                        onchange="this.form.submit()">
+                <h2 class="menu-card-title">📖 Navigation</h2>
 
-                    <?php for ($i = 0; $i <= 604; $i++): ?>
-                        <option value="<?= $i ?>"
-                            <?= ($page === $i) ? 'selected' : '' ?>>
-                            page <?= $i ?>
-                        </option>
-                    <?php endfor; ?>
+                <div class="menu-group">
+                    <label for="page">Page</label>
+                    <select name="page" id="page" onchange="this.form.submit()">
+                        <?php for ($i = 0; $i <= 604; $i++): ?>
+                            <option value="<?= $i ?>">
+                                <?= ($page === $i) ? 'selected' : '' ?>
+                                Page <?= $i ?>
+                            </option>
+                        <?php endfor; ?>
+                    </select>
+                </div>
 
-                </select>
+                <div class="menu-group">
+                    <label for="sourate_arabe">Sourate (Arabe)</label>
+                    <select onchange="this.form.submit()" name="sourate_arabe" id="sourate_arabe">
+                        <option value="">Choisir une sourate</option>
+                        <?php foreach ($List_sourates_arabe as $numero => $nom): ?>
+                            <option value="<?= $numero ?>">
+                                <?= ($sourateArabeSelectionnee == $numero) ? 'selected' : '' ?>
+                                <?= $numero ?> - <?= $nom ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
 
-              </div>
-
-              <div class="menu-item">
-                <!--<input class=button type="submit" id="read_sourate_arabe" name="read_sourate_arabe" value="Sourate arabe">-->
-                <select onchange="this.form.submit()" name="sourate_arabe" id="sourate_arabe">
-                    <option value="">Choisir une sourate</option>
-                    <?php foreach ($List_sourates_arabe as $numero => $nom): ?>
-                        <option value="<?= $numero ?>">
-                            <?= ($sourateArabeSelectionnee == $numero) ? 'selected' : '' ?>>
-                            <?= $numero ?> - <?= $nom ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-                <!--<input class=num_sourate_arabe type="text" id="num_sourate_arabe" name="num_sourate_arabe" placeholder="Saisir (1-114)">-->
-                <!--<input type="number" placeholder="Sourate (1-114)" id="in_sourate">
-                <button onclick="goSourate()">Sourate</button>-->
-              </div>
-
-              <div class="menu-item">
-                <!--<input class=button type="submit" id="read_sourate_french" name="read_sourate_french" value="Sourate français">-->
-                <!--<input class=num_sourate_french type="text" id="num_sourate_french" name="num_sourate_french" size="5" placeholder="Sourate (1-114)"> -->
-                <select onchange="this.form.submit()" name="sourate_french" id="sourate_french">
-                    <option value="">Choisir une sourate</option>
-                    <?php foreach ($List_sourates_french as $numero => $nom): ?>
-                        <option value="<?= $numero ?>">
-                            <?= $numero ?> - <?= $nom ?>
-                        </option>
-                    <?php endforeach; ?>
-                </select>
-              </div>
-
-              <div class="menu-item">
-                <!--<input class=button type="submit" id="find_words" name="find_words" value="Recherche arabe">-->
-                <input onchange="this.form.submit()" class=word_to_find type="text" id="word" name="word" placeholder="أدخل الكلمة">
-                <!--<input type="number" placeholder="Verset" id="in_ayah">
-                <button onclick="goAyah()">Verset</button>-->
-              </div>
-
-              <div class="menu-item">
-                <!--<input type="text" placeholder="Recherche mot" id="in_search">
-                <button onclick="searchWord()">Chercher</button>-->
-                <!--<input class=button type="submit" id="find_words_french" name="find_words_french" value="Recherche français">-->
-                <input onchange="this.form.submit()" class=word_to_find type="text" id="word_french" name="word_french" placeholder="Saisir le mot">
-              </div>
-
-              <div class="menu-item">
-                <!--<input type="number" placeholder="Juz (1-30)" id="in_juz">
-                <button onclick="goJuz()">Juz</button>-->
-                <input class=button type="submit" id="find_words_french_jv" name="find_words_french_jv" value="Hadith">
-                <input onchange="this.form.submit()" class=word_to_find type="text" id="word_french_jv" name="word_french_jv" placeholder="Saisir le mot">
-              </div>
-
-              <div class="menu-item">
-                <!--<input type="number" placeholder="Hizb (1-60)" id="in_hizb">
-                <button onclick="goHizb()">Hizb</button>-->
-                <!-- Poids des mots  -->
-                <input class=button type="submit" id="poids_sourates" name="poids_sourates" value="Poids des sourates">
-              </div>
+                <div class="menu-group">
+                    <label for="sourate_french">Sourate (Français)</label>
+                    <select onchange="this.form.submit()" name="sourate_french" id="sourate_french">
+                        <option value="">Choisir une sourate</option>
+                        <?php foreach ($List_sourates_french as $numero => $nom): ?>
+                            <option value="<?= $numero ?>">
+                                <?= ($sourateFrenchSelectionnee == $numero) ? 'selected' : '' ?>
+                                <?= $numero ?> - <?= $nom ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </div>
 
             </div>
-        </form>    
+
+            <!-- SECTION 2 : RECHERCHE -->
+            <div class="menu-card">
+
+                <h2 class="menu-card-title">🔍 Recherche</h2>
+
+                <div class="menu-group">
+                    <label>Coran</label>
+                    <input onchange="this.form.submit()" type="text" name="word" placeholder="أدخل الكلمة">
+                    <input onchange="this.form.submit()" type="text" name="word_french" placeholder="Saisir le mot">
+                </div>
+
+                <div class="menu-group">
+                    <label>Hadiths</label>
+                    <input onchange="this.form.submit()" type="text" name="word_french_jv" placeholder="Saisir le mot">
+                </div>
+
+            </div>
+
+        </form>
+
     </div>
     
 
@@ -385,7 +374,7 @@
             function read_coran(){
                 $fh = fopen('quran-uthmani-min.txt', 'r');
                 $result = '';
-                $style = '<div style="padding-left:15%; padding-right:15%;;overflow:hidden;">';
+                $style = '<div style="padding-left:15%; padding-right:15%; padding-top:5%; overflow:hidden; font-family:Scheherazade New, serif; direction:rtl; text-align:justify;">';
                 while(!feof($fh)){
                     $line = fgets($fh);
                     $line_splits = explode("|",$line);
@@ -424,10 +413,10 @@
                     }
                 }
                 $result = $title.$result;
-                $style = '<div style="padding-left:15%; padding-right:15%;;overflow:hidden;">';
+                $style = '<div style="padding-left:15%; padding-right:15%; padding-top:5%; overflow:hidden;">';
 
                 foreach ($asma_fr as $mot) {
-                    $result = str_replace($mot, "<span style='color:red;'>$mot</span>", $result);
+                    $result = str_replace($mot, "<span style='color:blue;'>$mot</span>", $result);
                 }
                 echo $style.$result.'</div>';
             }
@@ -452,7 +441,7 @@
                             $verset = $verset.$line_splits[$i];
                         }
                         #Ajout du verset au resultat
-                        $result = $result.'<div style="font-size:0.85em;color:green">Sourate: '.$line_splits[0].'   Ayyat: '.$line_splits[1].'</div> <div style="font-size:1.55em;color:#0e3c68;font-weight:bold;">'.$verset.'</div></br>';
+                        $result = $result.'<div style="font-size:1.55em;color:#0e3c68;font-weight:bold;">'.$verset.'</div></br>';
                     }
                 }
 
@@ -469,7 +458,7 @@
                     $line_splits = explode("|",$line);
                     #echo $num_sourate; echo "<------->"; echo $line_splits[0];  echo '<br/>';
                     if(count($line_splits) > 2  && strcmp($line_splits[0],$num_sourate)==0 && strcmp($line_splits[1],$num_verset)==0){
-                        $result = $result.'<div style="font-size:0.85em;color:green">Sourate: '.$line_splits[0].'   Ayyat: '.$line_splits[1].'</div> <div style="font-size:1.85em;color:#0e3c68;font-weight:bold;">'.$line_splits[2].'</div></br>';                        
+                        $result = $result.'<div style="font-size:1.85em;color:#0e3c68;font-weight:bold;">'.$line_splits[2].'</div></br>';                        
                     }
                 }
 
@@ -601,7 +590,7 @@
                 ];
 
                 $title = '<div class="titre-sourate">'.$sourates_ar[$num_sourate_arabe-1].'</div>';
-                $result = "<div class='page_coran'><div style='padding-left:15%; padding-right:15%; overflow:hidden; font-size:2.85em;color:#0e3c68;font-weight:bold; font-family:Scheherazade New, serif;direction:rtl; text-align:justify; text-align-last: justify;'>";
+                $result = "<div class='page_coran'><div style='padding-left:15%; padding-right:15%; padding-top:5%; overflow:hidden; font-size:2.85em;color:#0e3c68;font-weight:bold; font-family:Scheherazade New, serif;direction:rtl; text-align:justify; text-align-last: justify;'>";
 
                 while(!feof($fh)){
                     $line =fgets($fh);
@@ -638,12 +627,12 @@
                 $bismillah_list = ["بِسمِ اللَّهِ الرَّحمٰنِ الرَّحيمِ","بِسمِ اللَّهِ الرَّحمٰنِ الرَّحيمِ"];
 
                 foreach ($bismillah_list as $bismillahi){
-                    $result = str_replace($bismillahi, "<span style='color:red;>".$bismillahi."</span></br>", $result );
+                    $result = str_replace($bismillahi, "</br><span style='color:green;>".$bismillahi."</span></br>", $result );
                 } 
 
                 $asma_ar = ["اللَّهِ","الرَّحمٰنِ ","الرَّحيمِ ","اللَّهَ ", "اللَّهُ"];
                 foreach ($asma_ar as $mot) {
-                    $result = str_replace($mot, "<span style='color:red;'>$mot</span>", $result);
+                    $result = str_replace($mot, "<span style='color:green;'>$mot</span>", $result);
                 }
 
                 
@@ -679,7 +668,7 @@
                     }
                 }
                 $result = $title.$result;
-                $style = '<div style="padding-left:15%; padding-right:15%;overflow:hidden;">';
+                $style = '<div style="padding-left:15%; padding-right:15%; padding-top:5%; overflow:hidden;">';
                 echo $style.$result.'</div>';
 
             }
@@ -903,7 +892,7 @@
                             Sourate:'.$num_sourate.':'.$ayat.'
                         </div>                        
 
-                        <div style="font-size:2.85em;color:#0e3c68;font-weight:bold; text-align:right;">
+                        <div style="font-size:2.85em;color:#0e3c68;font-weight:bold; text-align:right; font-family:Scheherazade New, serif; direction:rtl; text-align:justify;">
                             '.$text_ar.'
                         </div>
                         
@@ -917,17 +906,17 @@
                 $bismillah_list = ["بِسمِ اللَّهِ الرَّحمٰنِ الرَّحيمِ","بِسمِ اللَّهِ الرَّحمٰنِ الرَّحيمِ"];
 
                 foreach ($bismillah_list as $bismillahi){
-                    $result = str_replace($bismillahi, "<span style='color:red;>".$bismillahi."</span></br>", $result );
+                    $result = str_replace($bismillahi, "</br><span style='color:green;>".$bismillahi."</span></br>", $result );
                 } 
 
                 foreach ($asma_fr as $mot) {
-                    $result = str_ireplace($mot, "<span style='color:red;'>$mot</span>", $result);
+                    $result = str_ireplace($mot, "<span style='color:blue;'>$mot</span>", $result);
                 }
                 foreach ($asma_ar as $mot) {
-                    $result = str_ireplace($mot, "<span style='color:red;'>$mot</span>", $result);
+                    $result = str_ireplace($mot, "<span style='color:green;'>$mot</span>", $result);
                 }
 
-                echo '<div style="padding-left:15%; padding-right:15%;">'.$title.$result.'</div>';
+                echo '<div style="padding-left:15%; padding-right:15%; padding-top:5%;">'.$title.$result.'</div>';
             }
 
             ## Finction search word in the coran
@@ -943,23 +932,28 @@
                 while(!feof($fh)){                    
 
                     # Vérification de l'existance de l'index dans le line_splits
-                    if(count($line_splits) > 2 && str_contains($line_splits[2],$word)){
-                            $result = $result.'<div style="font-size:1.85em;color:green">Sourate: '.$line_splits[0].'   Ayyat: '.$line_splits[1].'</div> <div style="font-size:1.85em;color:#0e3c68;font-weight:bold;">'.$line_splits[2].'</div></br>';
-
+                    if(count($line_splits) > 2 && stripos($line_splits[2],$word)){
+                            #$result = $result.'<div style="font-size:1.85em;color:green">Sourate: '.$line_splits[0].'   Ayyat: '.$line_splits[1].'</div> <div style="font-size:1.85em;color:#0e3c68;font-weight:bold;">'.$line_splits[2].'</div></br>';
+                            $result .= '<div style="font-size:1.25em;color:blue; text-align:left;">Sourate:'.$line_splits[0].':'.$line_splits[1].'</div> <div style="font-size:1.85em;color:#0e3c68;font-weight:bold;">'.$line_splits[2].'</div></br>';
                             $result_french = read_verset_french($line_splits[0],$line_splits[1]);
                             $result = $result.$result_french;
 
-                            $number = $number + substr_count($line_splits[2],$word);
+                            $texte = $line_splits[2];                            
+                            $count = substr_count(
+                                strtolower($texte),
+                                strtolower($word)
+                            );
+                            $number = $number + $count;
                     }
 
                     $line =fgets($fh);
                     $line_splits = explode("|",$line);
                 }
 
-                $title = '<div style="font-size:2.25em;color:red;font-weight:bold"> < '.$word.' > dans le coran : '.$number.' fois </div></br>';
-                $style = '<div style="padding-left:15%; padding-right:15%;overflow:hidden;position:relative;">';
+                $title = '<div style="font-size:2.25em;color:green;font-weight:bold; font-family:Scheherazade New, serif; direction:rtl;"> < '.$word.' > apparaît dans le coran : '.$number.' fois </div></br>';
+                $style = '<div style="padding-left:15%; padding-right:15%; padding-top:5%; overflow:hidden;position:relative; font-family:Scheherazade New, serif; direction:rtl; text-align:justify;">';
 
-                $result = str_replace($word, "<span style='color:red;'>$word</span>", $result);
+                $result = str_replace($word, "<span style='color:blue;'>$word</span>", $result);
                 echo $style.$title.$result.'</div>';
 
             }
@@ -977,22 +971,27 @@
                 while(!feof($fh)){                    
 
                     # Vérification de l'existance de l'index dans le line_splits
-                    if(count($line_splits) > 2 && str_contains($line_splits[2],$word_french)){
-                            $result = $result.'<div style="font-size:1.85em;color:green">Sourate: '.$line_splits[0].'   Ayyat: '.$line_splits[1].'</div> <div style="font-size:1.85em;color:#0e3c68;font-weight:bold;">'.$line_splits[2].'</div></br>';
-
+                    if(count($line_splits) > 2 && stripos($line_splits[2],$word_french)){
+                            #$result = $result.'<div style="font-size:1.85em;color:green">Sourate: '.$line_splits[0].'   Ayyat: '.$line_splits[1].'</div> <div style="font-size:1.85em;color:#0e3c68;font-weight:bold;">'.$line_splits[2].'</div></br>';
+                            $result .= '<div style="font-size:1.25em;color:blue; text-align:left;">Sourate:'.$line_splits[0].':'.$line_splits[1].'</div> <div style="font-size:1.85em;color:#0e3c68;font-weight:bold;">'.$line_splits[2].'</div></br>';
                             $result_french = read_verset_arabe($line_splits[0],$line_splits[1]);
                             $result = $result.$result_french;
 
-                            $number = $number + substr_count($line_splits[2],$word_french);
+                            $texte = $line_splits[2];                            
+                            $count = substr_count(
+                                strtolower($texte),
+                                strtolower($word_french)
+                            );
+                            $number = $number + $count;
                     }
 
                     $line =fgets($fh);
                     $line_splits = explode(".",$line);
                 }
 
-                $title = '<div style="font-size:2.25em;color:red;font-weight:bold">< '.$word_french.' > dans le coran : '.$number.' fois</div></br>';
-                $style = '<div style="padding-left:15%; padding-right:15%;overflow:hidden;position:relative;">';
-                $result = str_replace($word_french, "<span style='color:red;'>$word_french</span>", $result);
+                $title = '<div style="font-size:2.25em;color:green;font-weight:bold">" '.$word_french.'" : apparaît dans le coran : '.$number.' fois</div></br>';
+                $style = '<div style="padding-left:15%; padding-right:15%; padding-top:5%; overflow:hidden;position:relative;">';
+                $result = str_replace($word_french, "<span style='color:blue;'>$word_french</span>", $result);
                 echo $style.$title.$result.'</div>';
             }
 
@@ -1027,7 +1026,7 @@
 
                     if($isHadith){
                         # On verifie si le mot est contenu dans le hadith précédent
-                        if($Hadith !== '' && str_contains($Hadith,$word_french_jv)){
+                        if($Hadith !== '' && stripos($Hadith,$word_french_jv)){
 
                             #echo 'Hadith ajouté :'.$Hadith;
 
@@ -1035,7 +1034,12 @@
                             $result = $result.'<div style="font-size:1.85em;color:#0e3c68;font-weight:bold;">'.$Hadith.'</div></br>';
 
                             #Incrementation du nombre
-                            $number = $number + substr_count($Hadith,$word_french_jv);
+                            #$number = $number + substr_count($Hadith,$word_french_jv);
+                            $count = substr_count(
+                                strtolower($Hadith),
+                                strtolower($word_french_jv)
+                            );
+                            $number = $number + $count;
 
                             # Réinitialisation du Hadith
                             $Hadith = '';
@@ -1075,7 +1079,7 @@
                     # Cas d'un verset'
                     }else if($isVerset){
                         # On verifie si le mot est contenu dans le verset précédent
-                        if($Verset !== '' && str_contains($Verset,$word_french_jv)){
+                        if($Verset !== '' && stripos($Verset,$word_french_jv)){
 
                             #echo "Verset AJOUTÉ :< ".$Verset." >";
 
@@ -1083,7 +1087,12 @@
                             $result = $result.'<div style="font-size:1.85em;color:#0e3c68;font-weight:bold;">'.$Verset.'</div></br>';
 
                             #Incrementation du nombre
-                            $number = $number + substr_count($Verset,$word_french_jv);
+                            #$number = $number + substr_count($Verset,$word_french_jv);
+                            $count = substr_count(
+                                strtolower($Hadith),
+                                strtolower($word_french_jv)
+                            );
+                            $number = $number + $count;
 
                             # Réinitialisation du Verset
                             $Verset = '';
@@ -1137,9 +1146,9 @@
 
                 }
 
-                $title = '<div style="font-size:2.25em;color:red;font-weight:bold">< '.$word_french_jv.'> dans le jardin des vertueux : '.$number.' fois</div></br>';
-                $style = '<div style="padding-left:15%; padding-right:15%;overflow:hidden;position:relative;">';
-                $result = str_replace($word_french_jv, "<span style='color:red;'>$word_french_jv</span>", $result);
+                $title = '<div style="font-size:2.25em;color:green;font-weight:bold">" '.$word_french_jv.'" apparaît dans le jardin des vertueux : '.$number.' fois</div></br>';
+                $style = '<div style="padding-left:15%; padding-right:15%; padding-top:5%; overflow:hidden;position:relative;">';
+                $result = str_replace($word_french_jv, "<span style='color:blue;'>$word_french_jv</span>", $result);
                 echo $style.$title.$result.'</div>';
             }
 
@@ -1247,7 +1256,7 @@
                 $fh = fopen('quran-uthmani-min.txt', 'r');
                 $result ='';
                 $number=0;
-                $style = '<div style="padding-left:15%; padding-right:15%;;overflow:hidden;position:relative;">';
+                $style = '<div style="padding-left:15%; padding-right:15%; padding-top:5%; overflow:hidden;position:relative;">';
                 
                 while(!feof($fh)){
                     $line =fgets($fh);
@@ -1257,7 +1266,7 @@
                     echo $style.$line_splits[2].sizeof($words_splits).'</div>';
                 }
                 
-                $title = '<div style="font-size:2.25em;color:red;font-weight:bold">Total of words  in the coran is : '.$number.'</div></br>';
+                $title = '<div style="font-size:2.25em;color:green;font-weight:bold">Total of words  in the coran is : '.$number.'</div></br>';
                 echo $style.$title.'</div>';
             }
             
@@ -1313,7 +1322,7 @@
             function read_coran_page($num_page){
                 $fh = fopen('quran-uthmani-min-page.txt', 'r');
                 $result = '';
-                $style = "<div style='padding-left:15%; padding-right:15%;;overflow:hidden; font-size:0.85em;color:#0e3c68;font-weight:bold; font-family:Scheherazade New, serif;direction:rtl;'>";
+                $style = "<div style='padding-left:15%; padding-right:15%; padding-top:5%; overflow:hidden; font-size:0.85em;color:#0e3c68;font-weight:bold; font-family:Scheherazade New, serif;direction:rtl;'>";
                 
                 $asma_ar = ["اللَّه", "ِ الرَّحمٰنِ", "الرَّحيمِ","لِلَّهِ", "رَبِّ","رَبَّ", "رَبِّهِمْ", "رَبَّنَا", "رَبِّكَ", "رَبُّكَ", "رَبِّهِمْ", "رَبَّنَا", "رَبِّكَ", "رَبُّكَ","الرَّحمٰنِ","الرَّحيمِ","مٰلِكِ","القُدُّوس","السَّلَام",
                         "المُؤْمِن","المُهَيْمِن", "العَزِيز","الجَبَّار","المُتَكَبِّر","الخَالِق","البَارِىء","المُصَوِّر","الغَفَّار", "القَهَّار","الوَهَّاب","الرَّزَّاق","الفَتَّاح","العَلِيم","القَابِض","البָاسِط",
@@ -1341,14 +1350,14 @@
                 $bismillah_list = ["بِسمِ اللَّهِ الرَّحمٰنِ الرَّحيمِ","بِسمِ اللَّهِ الرَّحمٰنِ الرَّحيمِ"];
 
                 foreach ($bismillah_list as $bismillahi){
-                    $result = str_ireplace($bismillahi, "<span style='color:red;>".$bismillahi."</span></br>", $result );
+                    $result = str_ireplace($bismillahi, "</br><span style='color:green;>".$bismillahi."</span></br>", $result );
                 } 
 
                 foreach ($asma_ar as $mot) {
-                    $result = str_ireplace($mot, "<span style='color:red;'>$mot</span>", $result);
+                    $result = str_ireplace($mot, "<span style='color:green;'>$mot</span>", $result);
                 }
                 
-                $numpage = '<div id="page-number">'.$num_page.'</div>';
+                $numpage = '<div class="page-number" id="page-number">'.$num_page.'</div>';
                 echo $style.$result.$numpage;
             }               
 
@@ -1438,21 +1447,19 @@
             ?>
         </div>
 
-        <div class="page-coran" id="page-coran">
-            <div class="text-ar">
-                <?php                
+        <div class=text-ar>
+            <?php                
                 
-                    ## goPageCoran
-                    if(!empty($_POST['page'])){
-                          $page = intval($_POST['page']);
-                          if ($page < 1) $page = 1;
-                          if ($page > 604) $page = 604;
-                          read_coran_page($page);
-                    } 
+                ## goPageCoran
+                if(!empty($_POST['page'])){
+                      $page = intval($_POST['page']);
+                      if ($page < 1) $page = 1;
+                      if ($page > 604) $page = 604;
+                      read_coran_page($page);
+                } 
                   
-                ?>   
-            </div>      
-        </div>
+            ?>   
+        </div>   
     </div>
 
     
