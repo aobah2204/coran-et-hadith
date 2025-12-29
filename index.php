@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="styles.css">
     <meta charset="UTF-8">    
     <link href="https://fonts.googleapis.com/css2?family=Scheherazade+New:wght@700&display=swap" rel="stylesheet">
-
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 
@@ -274,69 +273,70 @@
         ?>
         <form action="<?php echo $_SERVER['PHP_SELF'];?>" method="post">
 
-            <!-- SECTION 1 : NAVIGATION & SOURATES -->
-            <div class="menu-card">
+            <!--<div class="menu-container">-->
+                <!-- SECTION 1 : NAVIGATION & SOURATES -->
+                <div class="menu-card">
 
-                <h2 class="menu-card-title">📖 Navigation</h2>
+                    <h2 class="menu-card-title">📖 Navigation</h2>
 
-                <div class="menu-group">
-                    <label for="page">Page</label>
-                    <select name="page" id="page" onchange="this.form.submit()">
-                        <?php for ($i = 0; $i <= 604; $i++): ?>
-                            <option value="<?= $i ?>">
-                                <?= ($page === $i) ? 'selected' : '' ?>
-                                Page <?= $i ?>
-                            </option>
-                        <?php endfor; ?>
-                    </select>
+                    <div class="menu-group">
+                        <label for="page">Page</label>
+                        <select name="page" id="page" onchange="this.form.submit()">
+                            <?php for ($i = 0; $i <= 604; $i++): ?>
+                                <option value="<?= $i ?>">
+                                    <?= ($page === $i) ? 'selected' : '' ?>
+                                    Page <?= $i ?>
+                                </option>
+                            <?php endfor; ?>
+                        </select>
+                    </div>
+
+                    <div class="menu-group">
+                        <label for="sourate_arabe">Sourate (Arabe)</label>
+                        <select onchange="this.form.submit()" name="sourate_arabe" id="sourate_arabe">
+                            <option value="">Choisir une sourate</option>
+                            <?php foreach ($List_sourates_arabe as $numero => $nom): ?>
+                                <option value="<?= $numero ?>">
+                                    <?= ($sourateArabeSelectionnee == $numero) ? 'selected' : '' ?>
+                                    <?= $numero ?> - <?= $nom ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+
+                    <div class="menu-group">
+                        <label for="sourate_french">Sourate (Français)</label>
+                        <select onchange="this.form.submit()" name="sourate_french" id="sourate_french">
+                            <option value="">Choisir une sourate</option>
+                            <?php foreach ($List_sourates_french as $numero => $nom): ?>
+                                <option value="<?= $numero ?>">
+                                    <?= ($sourateFrenchSelectionnee == $numero) ? 'selected' : '' ?>
+                                    <?= $numero ?> - <?= $nom ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
+
                 </div>
 
-                <div class="menu-group">
-                    <label for="sourate_arabe">Sourate (Arabe)</label>
-                    <select onchange="this.form.submit()" name="sourate_arabe" id="sourate_arabe">
-                        <option value="">Choisir une sourate</option>
-                        <?php foreach ($List_sourates_arabe as $numero => $nom): ?>
-                            <option value="<?= $numero ?>">
-                                <?= ($sourateArabeSelectionnee == $numero) ? 'selected' : '' ?>
-                                <?= $numero ?> - <?= $nom ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
+                <!-- SECTION 2 : RECHERCHE -->
+                <div class="menu-card">
+
+                    <h2 class="menu-card-title">🔍 Recherche</h2>
+
+                    <div class="menu-group">
+                        <label>Coran</label>
+                        <input onchange="this.form.submit()" type="text" name="word" placeholder="أدخل الكلمة">
+                        <input onchange="this.form.submit()" type="text" name="word_french" placeholder="Saisir le mot">
+                    </div>
+
+                    <div class="menu-group">
+                        <label>Hadiths</label>
+                        <input onchange="this.form.submit()" type="text" name="word_french_jv" placeholder="Saisir le mot">
+                    </div>
+
                 </div>
-
-                <div class="menu-group">
-                    <label for="sourate_french">Sourate (Français)</label>
-                    <select onchange="this.form.submit()" name="sourate_french" id="sourate_french">
-                        <option value="">Choisir une sourate</option>
-                        <?php foreach ($List_sourates_french as $numero => $nom): ?>
-                            <option value="<?= $numero ?>">
-                                <?= ($sourateFrenchSelectionnee == $numero) ? 'selected' : '' ?>
-                                <?= $numero ?> - <?= $nom ?>
-                            </option>
-                        <?php endforeach; ?>
-                    </select>
-                </div>
-
-            </div>
-
-            <!-- SECTION 2 : RECHERCHE -->
-            <div class="menu-card">
-
-                <h2 class="menu-card-title">🔍 Recherche</h2>
-
-                <div class="menu-group">
-                    <label>Coran</label>
-                    <input onchange="this.form.submit()" type="text" name="word" placeholder="أدخل الكلمة">
-                    <input onchange="this.form.submit()" type="text" name="word_french" placeholder="Saisir le mot">
-                </div>
-
-                <div class="menu-group">
-                    <label>Hadiths</label>
-                    <input onchange="this.form.submit()" type="text" name="word_french_jv" placeholder="Saisir le mot">
-                </div>
-
-            </div>
-
+            <!--</div>-->
         </form>
 
     </div>
@@ -585,7 +585,9 @@
                   "سورة الناس"
                 ];
 
-                $title = '<div class="titre-sourate">'.$sourates_ar[$num_sourate_arabe-1].'</div>';
+                #$title = '<div class="titre-sourate">'.$sourates_ar[$num_sourate_arabe-1].'</div>';
+                $title = '<div class="sourate-wrapper"><span class="ornament left"></span><div class="sourate-header"> '.$sourates_ar[$num_sourate_arabe-1].'</div> <span class="ornament right"></span></div>';
+                
                 $result = "<div class='page_coran'><div style='padding-left:15%; padding-right:15%; padding-top:5%; overflow:hidden; font-size:2.85em;color:#0e3c68;font-weight:bold; font-family:Scheherazade New, serif;direction:rtl; text-align:justify; text-align-last: justify;'>";
 
                 while(!feof($fh)){
@@ -605,19 +607,19 @@
                 $result .="</div></div>";
                 
 
-                echo $style.'<Br/>Poids de la sourate : '.$poids_sourate.'<Br/>';
+                #echo $style.'<Br/>Poids de la sourate : '.$poids_sourate.'<Br/>';
 
                 # Divible par 19 ?
-                if($poids_sourate % 19 === 0)
-                    echo "Poids divible par 19 <Br/>";
+                #if($poids_sourate % 19 === 0)
+                    #echo "Poids divible par 19 <Br/>";
 
                 # Divible par 7 ?
-                if($poids_sourate % 7 === 0)
-                    echo "Poids divible par 7 <Br/>";
+                #if($poids_sourate % 7 === 0)
+                    #echo "Poids divible par 7 <Br/>";
 
                 # Divible par 12 ?
-                if($poids_sourate % 12 === 0)
-                    echo "Poids divible par 12 <Br/>";                
+                #if($poids_sourate % 12 === 0)
+                    #echo "Poids divible par 12 <Br/>";                
                 
                 
                 $asma_ar = ["ٱللَّهُ","ٱللَّهِ","ٱللَّهَ","هُوَ ٱلَّذِىٓ","ٱلْحَىُّ","ٱلْقَيُّومُ","رَبَّنَآ","لِلَّهِ","رَبِّ","الرَّحْمَنِ","الرَّحِيمِ","مَالِكِ","عَزِيزٌ","ٱلْعَزِيزُ","ٱلْحَكِيمُ","شَدِيدُ ٱلْعِقَابِ","بَصِيرٌۢ","سَرِيعُ ٱلْحِسَابِ","قَدِيرٌۭ","رَءُوفٌۢ","رَّحِيمٌ",
@@ -631,8 +633,8 @@
                 if($num_sourate_arabe != 9){
 
                     $bismillah_i = "بِسمِ اللَّهِ الرَّحمٰنِ الرَّحيمِ";
-                    $bismillah = "</br><span style='font-size:2.85em;color:#0e3c68;font-weight:bold; text-align:right; font-family:Scheherazade New, serif; direction:rtl; text-align:center;'>".$bismillah_i."</span></br>";
-                    echo $style.$title.$bismillah_i.$result.'</div>';
+                    $bismillah = "<span style='font-size:1.85em;color:#0e3c68;font-weight:bold; text-align:right; font-family:Scheherazade New, serif; direction:rtl; text-align:center;'>".$bismillah_i."</span>";
+                    echo $style.$title.$bismillah.$result.'</div>';
                 }else{
                     echo $style.$title.$result.'</div>';
                 }
@@ -864,7 +866,9 @@
                   "سورة الناس"
                 ];
 
-                $title = '<div class="titre-sourate">'.$sourates_ar[$num_sourate-1].'</div>';
+                #$title = '<div class="titre-sourate">'.$sourates_ar[$num_sourate-1].'</div>';
+                $title = '<div class="sourate-wrapper"><span class="ornament left"></span><div class="sourate-header"> '.$sourates_ar[$num_sourate-1].'</div> <span class="ornament right"></span></div>';
+                        
 
                 $result = '';
 
@@ -909,7 +913,7 @@
                 }
 
                 if($num_sourate != 9)
-                    echo '<div style="padding-left:15%; padding-right:15%; padding-top:5%;">'.$title.$bismillah_i.$result.'</div>';
+                    echo '<div style="padding-left:15%; padding-right:15%; padding-top:5%;">'.$title.$bismillah.$result.'</div>';
                 else {
 	                echo '<div style="padding-left:15%; padding-right:15%; padding-top:5%;">'.$title.$result.'</div>';
                 }
@@ -987,7 +991,7 @@
                 }
 
                 $title = '<div style="font-size:2.25em;color:green;font-weight:bold">" '.$word_french.'" : apparaît dans le coran : '.$number.' fois</div></br>';
-                $style = '<div style="padding-left:15%; padding-right:15%; padding-top:5%; overflow:hidden;position:relative;">';
+                $style = '<div style="padding-left:15%; padding-right:15%; padding-top:5%; overflow:hidden;position:relative; font-family:Scheherazade New, serif; direction:rtl; text-align:justify;">';
                 $result = str_replace(strtolower($word_french), "<span style='color:blue;'>$word_french</span>", strtolower($result));
                 echo $style.$title.$result.'</div>';
             }
@@ -1493,7 +1497,7 @@
                 $currentSourate = 1;
 
                 $bismillah_i = "بسم الله الرحمن الرحيم";
-                $bismillah = "</br><span style='font-size:1.85em;color:#0e3c68;font-weight:bold; text-align:right; font-family:Scheherazade New, serif; direction:rtl; text-align:center;'>".$bismillah_i."</span></br>";
+                $bismillah = "<span style='font-size:0.85em;color:#0e3c68;font-weight:bold; text-align:right; font-family:Scheherazade New, serif; direction:rtl; text-align:center;'>".$bismillah_i."</span></br>";
                 
 
                 // 1️⃣ Lecture + classification
@@ -1507,7 +1511,8 @@
                     if (mb_strpos($line, $bismillah_i, 0, 'UTF-8') !== false) {
                         #echo $line;
                         #$result .= $bismillah;
-                        $ayah =  "<br>".$sourates_ar[$currentSourate].$bismillah;
+                        $sourate_head = '<div class="sourate-wrapper"><span class="ornament left"></span><div class="sourate-header"> '.$sourates_ar[$currentSourate].'</div> <span class="ornament right"></span></div>';
+                        $ayah =  $sourate_head.$bismillah;
                         $sourate = $sourate;
                         $verset  = 0;
                         $longueur = mb_strlen($ayah,'UTF-8');
@@ -1530,7 +1535,7 @@
                         // Références de taille
                         if ($sourate === 2 && $verset === 282) {
                             $taillePage = $longueur;
-                            echo 'Taille page :'.$taillePage.'\n';
+                            #echo 'Taille page :'.$taillePage.'\n';
                         }
                         if ($sourate === 108) {
                             $tailleLigne += $longueur;
@@ -1562,11 +1567,14 @@
 
                 // 2️⃣ Pages spéciales
                 if ($numeroPage === 1) {
-                    return $bismillah.$alfatiha; // 1 ligne
+                    $sourate_head = '<div class="sourate-wrapper"><span class="ornament left"></span><div class="sourate-header"> '.$sourates_ar[0].'</div> <span class="ornament right"></span></div>';
+                    return $sourate_head.$bismillah.$alfatiha; // 1 ligne
                 }
 
                 if ($numeroPage === 2) {
-                    return $bismillah.$albagara; // 1 ligne
+                    $sourate_head = '<div class="sourate-wrapper"><span class="ornament left"></span><div class="sourate-header"> '.$sourates_ar[1].'</div> <span class="ornament right"></span></div>';
+                        
+                    return $sourate_head.$bismillah.$albagara; // 1 ligne
                 }
 
                 // 3️⃣ Pagination normale à partir de la page 3
@@ -1598,7 +1606,7 @@
                     }                    
                 }
                 // Ajouter la dernière ligne
-                /*if (!empty($ligneCourante)) {
+                if (!empty($ligneCourante)) {
 
                     if ($pageCourante === $numeroPage &&  $taillePageCourante + $tailleLigne <= $taillePage) {
 
@@ -1606,7 +1614,7 @@
                         $result .= $v['ayah']." ﴿".$v['verset']."﴾ ";
                         #echo "Ligne ajouté :".$ligneCourante;
                     }
-                }*/
+                }
 
                 $asma_ar = ["ٱللَّهُ","ٱللَّهِ","ٱللَّهَ","هُوَ ٱلَّذِىٓ","ٱلْحَىُّ","ٱلْقَيُّومُ","رَبَّنَآ","لِلَّهِ","رَبِّ","الرَّحْمَنِ","الرَّحِيمِ","مَالِكِ","عَزِيزٌ","ٱلْعَزِيزُ","ٱلْحَكِيمُ","شَدِيدُ ٱلْعِقَابِ","بَصِيرٌۢ","سَرِيعُ ٱلْحِسَابِ","قَدِيرٌۭ","رَءُوفٌۢ","رَّحِيمٌ",
                         "ٱلسَّمِيعُ","ٱلْعَلِيمُ","سَمِيعُ ٱلدُّعَآءِ","وَلِىُّ","وَٰسِعٌ","عَلِيمٌۭ","ذُو ٱلْفَضْلِ ٱلْعَظِيمِ","غَفُورٌۭ"];

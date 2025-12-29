@@ -204,6 +204,65 @@ body{
     font-weight: bold;
 }
 
+.sourate-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 40px auto;
+    gap: 15px;
+}
+
+.sourate-header {
+    padding: 12px 40px;
+    font-family: "Amiri", "Scheherazade New", serif;
+    font-size: 28px;
+    font-weight: 700;
+    direction: rtl;
+    text-align: center;
+    color: #3a2f1b;
+    background: linear-gradient( to bottom, #fdf8e7, #f2ead1 );
+    border: 2px solid #c2a65a;
+    border-radius: 50px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15), inset 0 0 10px rgba(255,255,255,0.6);
+    white-space: nowrap;
+}
+
+/* Ornements */
+.ornament {
+    width: 50px;
+    height: 2px;
+    background: linear-gradient( to right, transparent, #c2a65a, transparent );
+    position: relative;
+}
+
+    /* Fleur centrale */
+    .ornament::before {
+        content: "❁";
+        position: absolute;
+        top: -14px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 18px;
+        color: #c2a65a;
+    }
+
+/* 🔁 Responsive mobile */
+@media (max-width: 600px) {
+    .sourate-header {
+        font-size: 20px;
+        padding: 8px 24px;
+    }
+
+    .ornament {
+        width: 30px;
+    }
+
+        .ornament::before {
+            font-size: 14px;
+            top: -11px;
+        }
+}
+
 .text-parchemin {
     font-family: "Scheherazade New", serif;
     direction: rtl;
@@ -273,6 +332,30 @@ body{
     border-color: #007BFF;
 }
 
+
+.page-number {
+    width: fit-content;
+    margin: 15px auto;
+    padding: 8px 20px;
+    font-size: 20px;
+    font-weight: bold;
+    direction: rtl;
+    border-radius: 8px;
+    background-color: #f5f5f5;
+    border: 2px solid #ccc;
+    text-align: center;
+}
+
+/* CONTAINER GLOBAL */
+form {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    padding: 8px 20px;
+    justify-content: center;
+}
+
+
 /* Menu */
 .menu-box {
     display: flex;
@@ -310,28 +393,6 @@ body{
         .menu-item button:hover {
             background: #135a9e;
         }
-
-.page-number {
-    width: fit-content;
-    margin: 15px auto;
-    padding: 8px 20px;
-    font-size: 20px;
-    font-weight: bold;
-    direction: rtl;
-    border-radius: 8px;
-    background-color: #f5f5f5;
-    border: 2px solid #ccc;
-    text-align: center;
-}
-
-/* CONTAINER GLOBAL */
-form {
-    display: flex;
-    gap: 1.5rem;
-    flex-wrap: wrap;
-    padding: 8px 20px;
-    justify-content: center;
-}
 
 /* CARD */
 .menu-card {
