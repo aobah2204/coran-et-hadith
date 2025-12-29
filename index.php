@@ -347,12 +347,8 @@
             <?php    
 
             // Variables Globales
-            $asma_ar = ["اللَّه", "لِلَّهِ", "رَبِّ","رَبَّ", "رَبِّهِمْ", "رَبَّنَا", "رَبِّكَ", "رَبُّكَ", "رَبِّهِمْ", "رَبَّنَا", "رَبِّكَ", "رَبُّكَ","الرَّحمٰنِ","الرَّحيمِ","مٰلِكِ","القُدُّوس","السَّلَام","المُؤْمِن","المُهَيْمِن", "العَزِيز","الجَبَّار","المُتَكَبِّر","الخَالِق","البَارِىء","المُصَوِّر","الغَفَّار", "القَهَّار","الوَهَّاب","الرَّزَّاق","الفَتَّاح","العَلِيم","القَابِض","البָاسِط",
-                     "الخَافِض","الرَّافِع","المُعِزّ","المُذِلّ","السَّمِيع","البَصِير","الحَكَم","العَدْل", "اللَّطِيف","الخَبِير","الحَلِيم","العَظِيم","الغَفُور","الشَّكُور","العَلِيّ","الكَبِير",
-                     "الحَفِيظ","المُقِيت","الحَسِيب","الجَلِيل","الكَرِيم","الرَّقِيب","المُجِيب","الوَاسِع", "الحَكِيم","الوَدُود","المَجِيد","البَاعِث","الشَّهِيد","الحَقّ","الوَكِيل","القَوِيّ",
-                     "المَتِين","الوَلِيّ","الحَمِيد","المُحْصِي","المُبْدِئ","المُعِيد","المُحْيِي","المُمِيت", "الحَيّ","القَيّوم","الوَاجِد","المَاجِد","الوَاحِد","الأَحَد","الصَّمَد","القَادِر",
-                     "المُقْتَدِر","المُقَدِّم","المُؤَخِّر","الأَوَّل","الآخِر","الظَّاهِر","البَاطِن", "الوَالِي","المُتَعَالِي","البَرّ","التَّوَّاب","المُنْتَقِم","العَفُوّ","الرَّؤُوف",
-                     "مَالِكُ المُلْك","ذُو الجَلَال وَالإِكْرَام","المُقْسِط","الجَامِع","الغَنِيّ","المُغْنِي", "المَانِع","الضَّار","النَّافِع","النُّور","الهَادِي","البَدِيع","البَاقِي","الوَارِث", "الرَّشِيد","الصَّبُور"];
+            $asma_ar = ["ٱللَّهُ","ٱللَّهِ","ٱللَّهَ","هُوَ","هُوَ ٱلَّذِىٓ","ٱلْحَىُّ","ٱلْقَيُّومُ","رَبَّنَآ","لِلَّهِ","رَبِّ","الرَّحْمَنِ","الرَّحِيمِ","مَالِكِ","عَزِيزٌ","ٱلْعَزِيزُ","ٱلْحَكِيمُ","شَدِيدُ ٱلْعِقَابِ","بَصِيرٌۢ","سَرِيعُ ٱلْحِسَابِ","قَدِيرٌۭ","رَءُوفٌۢ","رَّحِيمٌ",
+                        "ٱلسَّمِيعُ","ٱلْعَلِيمُ","سَمِيعُ ٱلدُّعَآءِ","وَلِىُّ","وَٰسِعٌ","عَلِيمٌۭ","ذُو ٱلْفَضْلِ ٱلْعَظِيمِ","غَفُورٌۭ"];
                 
             $asma_fr = ["Allah","Le Tout-Miséricordieux","Le Très-Miséricordieux","Le Souverain","Le Très-Saint", "La Paix","Le Garant","Le Protecteur","Le Tout-Puissant","Le Contraignant","Le Suprême",
                     "Le Créateur","Le Façonneur","Celui qui donne forme","Le Très-Pardonnant", "Le Dominateur absolu","Le Donateur","Le Pourvoyeur","Celui qui accorde la victoire",
@@ -372,7 +368,7 @@
 
             ## FunctionRead and print the coran text 
             function read_coran(){
-                $fh = fopen('quran-uthmani-min.txt', 'r');
+                $fh = fopen('coran-full-haraka.txt', 'r');
                 $result = '';
                 $style = '<div style="padding-left:15%; padding-right:15%; padding-top:5%; overflow:hidden; font-family:Scheherazade New, serif; direction:rtl; text-align:justify;">';
                 while(!feof($fh)){
@@ -450,7 +446,7 @@
 
             # Lecture d'un verset en arabe
             function read_verset_arabe($num_sourate,$num_verset){
-                $fh = fopen('quran-uthmani-min.txt', 'r');
+                $fh = fopen('coran-full-haraka.txt', 'r');
                 $result ='';
 
                 while(!feof($fh)){
@@ -467,7 +463,7 @@
 
             ## Function search sourate 
             function read_sourate_arabe($num_sourate_arabe){
-                $fh = fopen('quran-uthmani-min.txt', 'r');
+                $fh = fopen('coran-full-haraka.txt', 'r');
                 $result ='';
                 #$title = '<div style="font-size:1.55em;color:blue;font-weight:bold;">Sourate '.$num_sourate_arabe.'</div></br></br>';
                 $style = "";
@@ -607,8 +603,7 @@
                     }
                 }
                 $result .="</div></div>";
-
-                $result = $title.$result;
+                
 
                 echo $style.'<Br/>Poids de la sourate : '.$poids_sourate.'<Br/>';
 
@@ -622,29 +617,33 @@
 
                 # Divible par 12 ?
                 if($poids_sourate % 12 === 0)
-                    echo "Poids divible par 12 <Br/>";
-
-                $bismillah_list = ["بِسمِ اللَّهِ الرَّحمٰنِ الرَّحيمِ","بِسمِ اللَّهِ الرَّحمٰنِ الرَّحيمِ"];
-
-                foreach ($bismillah_list as $bismillahi){
-                    $result = str_replace($bismillahi, "</br><span style='color:green;>".$bismillahi."</span></br>", $result );
-                } 
-
-                $asma_ar = ["اللَّهِ","الرَّحمٰنِ ","الرَّحيمِ ","اللَّهَ ", "اللَّهُ"];
+                    echo "Poids divible par 12 <Br/>";                
+                
+                
+                $asma_ar = ["ٱللَّهُ","ٱللَّهِ","ٱللَّهَ","هُوَ","هُوَ ٱلَّذِىٓ","ٱلْحَىُّ","ٱلْقَيُّومُ","رَبَّنَآ","لِلَّهِ","رَبِّ","الرَّحْمَنِ","الرَّحِيمِ","مَالِكِ","عَزِيزٌ","ٱلْعَزِيزُ","ٱلْحَكِيمُ","شَدِيدُ ٱلْعِقَابِ","بَصِيرٌۢ","سَرِيعُ ٱلْحِسَابِ","قَدِيرٌۭ","رَءُوفٌۢ","رَّحِيمٌ",
+                        "ٱلسَّمِيعُ","ٱلْعَلِيمُ","سَمِيعُ ٱلدُّعَآءِ","وَلِىُّ","وَٰسِعٌ","عَلِيمٌۭ","ذُو ٱلْفَضْلِ ٱلْعَظِيمِ","غَفُورٌۭ","رَبَّكَ","حَكِيمٌ "];
+                
+            
                 foreach ($asma_ar as $mot) {
                     $result = str_replace($mot, "<span style='color:green;'>$mot</span>", $result);
                 }
 
+                if($num_sourate_arabe != 9){
+
+                    $bismillah_i = "بِسمِ اللَّهِ الرَّحمٰنِ الرَّحيمِ";
+                    $bismillah = "</br><span style='font-size:2.85em;color:#0e3c68;font-weight:bold; text-align:right; font-family:Scheherazade New, serif; direction:rtl; text-align:center;'>".$bismillah_i."</span></br>";
+                    echo $style.$title.$bismillah_i.$result.'</div>';
+                }else{
+                    echo $style.$title.$result.'</div>';
+                }
                 
-                
-                echo $style.$result.'</div>';
             }
 
             ## Fonction de lecture d'une sourate en arabe et français 
             function my_read_sourate($num_sourate){
                 # Ouverture des fichiers coran français et arabe
                 $coran_french = fopen('CoranFrancais_clean.txt', 'r');
-                $fh = fopen('quran-uthmani-min.txt', 'r');
+                $fh = fopen('coran-full-haraka.txt', 'r');
 
                 $result ='';
                 $title = '<div style="font-size:1.55em;color:blue;font-weight:bold;">Sourate '.$num_sourate_french.'</div></br></br>';
@@ -702,7 +701,7 @@
             function load_coran_arabe() {
 
                 $data = [];
-                $fh = fopen('quran-uthmani-min.txt', 'r');
+                $fh = fopen('coran-full-haraka.txt', 'r');
 
                 while (!feof($fh)) {
                     $line = trim(fgets($fh));
@@ -726,15 +725,10 @@
             ## Lis la sourate en parallèle
             function read_sourate($num_sourate) {
 
-                // Variables Globales
-                $asma_ar = ["اللَّه", "الرَّحمٰنِ", "الرَّحيمِ","لِلَّهِ", "رَبِّ","رَبَّ", "رَبِّهِمْ", "رَبَّنَا", "رَبِّكَ", "رَبُّكَ", "رَبِّهِمْ", "رَبَّنَا", "رَبِّكَ", "رَبُّكَ","الرَّحمٰنِ","الرَّحيمِ","مٰلِكِ","القُدُّوس","السَّلَام","المُؤْمِن","المُهَيْمِن", "العَزِيز","الجَبَّار","المُتَكَبِّر","الخَالِق","البَارِىء","المُصَوِّر","الغَفَّار", "القَهَّار","الوَهَّاب","الرَّزَّاق","الفَتَّاح","العَلِيم","القَابِض","البָاسِط",
-                        "الخَافِض","الرَّافِع","المُعِزّ","المُذِلّ","السَّمِيع","البَصِير","الحَكَم","العَدْل", "اللَّطِيف","الخَبِير","الحَلِيم","العَظِيم","الغَفُور","الشَّكُور","العَلِيّ","الكَبِير",
-                        "الحَفِيظ","المُقِيت","الحَسِيب","الجَلِيل","الكَرِيم","الرَّقِيب","المُجِيب","الوَاسِع", "الحَكِيم","الوَدُود","المَجِيد","البَاعِث","الشَّهِيد","الحَقّ","الوَكِيل","القَوِيّ",
-                        "المَتِين","الوَلِيّ","الحَمِيد","المُحْصِي","المُبْدِئ","المُعِيد","المُحْيِي","المُمِيت", "الحَيّ","القَيّوم","الوَاجِد","المَاجِد","الوَاحِد","الأَحَد","الصَّمَد","القَادِر",
-                        "المُقْتَدِر","المُقَدِّم","المُؤَخِّر","الأَوَّل","الآخِر","الظَّاهِر","البَاطِن", "الوَالِي","المُتَعَالِي","البَرّ","التَّوَّاب","المُنْتَقِم","العَفُوّ","الرَّؤُوف",
-                        "مَالِكُ المُلْك","ذُو الجَلَال وَالإِكْرَام","المُقْسِط","الجَامِع","الغَنِيّ","المُغْنِي", "المَانِع","الضَّار","النَّافِع","النُّور","الهَادِي","البَدِيع","البَاقِي","الوَارِث", "الرَّشِيد","الصَّبُور", "هُوَ الَّذى", "رَبُّكَ", "إِنّى", "أَنّى"];
-                    
-                $asma_fr = ["Allah","Le Tout Miséricordieux","Le Très Miséricordieux","Le Souverain","Le Très-Saint", "La Paix","Le Garant","Le Protecteur","Le Tout-Puissant","Le Contraignant","Le Suprême",
+                $asma_ar = ["ٱللَّهُ","ٱللَّهِ","ٱللَّهَ","هُوَ","هُوَ ٱلَّذِىٓ","ٱلْحَىُّ","ٱلْقَيُّومُ","رَبَّنَآ","لِلَّهِ","رَبِّ","الرَّحْمَنِ","الرَّحِيمِ","مَالِكِ","عَزِيزٌ","ٱلْعَزِيزُ","ٱلْحَكِيمُ","شَدِيدُ ٱلْعِقَابِ","بَصِيرٌۢ","سَرِيعُ ٱلْحِسَابِ","قَدِيرٌۭ","رَءُوفٌۢ","رَّحِيمٌ",
+                        "ٱلسَّمِيعُ","ٱلْعَلِيمُ","سَمِيعُ ٱلدُّعَآءِ","وَلِىُّ","وَٰسِعٌ","عَلِيمٌۭ","ذُو ٱلْفَضْلِ ٱلْعَظِيمِ","غَفُورٌۭ"];
+                
+                $asma_fr = ["Allah","Le Tout-Miséricordieux","Le Très-Miséricordieux","Le Souverain","Le Très-Saint", "La Paix","Le Garant","Le Protecteur","Le Tout-Puissant","Le Contraignant","Le Suprême",
                         "Le Créateur","Le Façonneur","Celui qui donne forme","Le Très-Pardonnant", "Le Dominateur absolu","Le Donateur","Le Pourvoyeur","Celui qui accorde la victoire",
                         "L'Omniscient","Celui qui restreint","Celui qui étend","Celui qui abaisse","Celui qui élève", "Celui qui honore","Celui qui avilit","L'Audient","Le Clairvoyant","Le Juge","Le Juste",
                         "Le Subtil","Le Parfaitement informé","Le Très-Doux","L'Immense","Le Très-Clément", "Le Très-Reconnaissant","Le Très-Haut","Le Très-Grand","Le Préservateur","Celui qui nourrit",
@@ -743,8 +737,8 @@
                         "Celui qui donne la vie","Celui qui donne la mort","Le Vivant","Celui qui subsiste par Lui-même", "Celui qui possède toute chose","Le Noble","L'Unique","L'Un","L'Absolu","Le Tout-Puissant",
                         "L'Omnipotent","Celui qui avance","Celui qui retarde","Le Premier","Le Dernier","L'Apparent", "Le Caché","Le Maître absolu","Le Très-Élevé","Le Bienfaiteur","Celui qui accepte le repentir",
                         "Le Vengeur","L'Indulgent","Très-Clément","Maître du Royaume","Détenteur de Majesté et de Générosité", "L'Équitable","Celui qui rassemble","Le Suffisant","Celui qui enrichit","Celui qui empêche",
-                        "Celui qui afflige","Celui qui accorde le bien","La Lumière","Le Guide","L'Incomparable","Le Permanent","L'Héritier","Le Guide vers la droiture","Le Patient", "Seigneur", "C'est Lui", "Je"];
-                    
+                        "Celui qui afflige","Celui qui accorde le bien","La Lumière","Le Guide","L'Incomparable","Le Permanent","L'Héritier","Le Guide vers la droiture","Le Patient"];
+            
 
                 $fr = load_coran_french();
                 $ar = load_coran_arabe();
@@ -903,11 +897,9 @@
                     </div>';
                 }
 
-                $bismillah_list = ["بِسمِ اللَّهِ الرَّحمٰنِ الرَّحيمِ","بِسمِ اللَّهِ الرَّحمٰنِ الرَّحيمِ"];
-
-                foreach ($bismillah_list as $bismillahi){
-                    $result = str_replace($bismillahi, "</br><span style='color:green;>".$bismillahi."</span></br>", $result );
-                } 
+                $bismillah_i = "بِسمِ اللَّهِ الرَّحمٰنِ الرَّحيمِ";
+                $bismillah = "</br><span style='font-size:2.85em;color:#0e3c68;font-weight:bold; text-align:right; font-family:Scheherazade New, serif; direction:rtl; text-align:center;'>".$bismillah_i."</span></br>";
+                
 
                 foreach ($asma_fr as $mot) {
                     $result = str_ireplace($mot, "<span style='color:blue;'>$mot</span>", $result);
@@ -916,12 +908,17 @@
                     $result = str_ireplace($mot, "<span style='color:green;'>$mot</span>", $result);
                 }
 
-                echo '<div style="padding-left:15%; padding-right:15%; padding-top:5%;">'.$title.$result.'</div>';
+                if($num_sourate != 9)
+                    echo '<div style="padding-left:15%; padding-right:15%; padding-top:5%;">'.$title.$bismillah_i.$result.'</div>';
+                else {
+	                echo '<div style="padding-left:15%; padding-right:15%; padding-top:5%;">'.$title.$result.'</div>';
+                }
+
             }
 
             ## Finction search word in the coran
             function find_word($word){
-                $fh = fopen('quran-uthmani-min.txt', 'r');
+                $fh = fopen('coran-full-haraka.txt', 'r');
                 $result ='';
                 $number=0;
 
@@ -1253,7 +1250,7 @@
 
             ## Function compte words of coran
             function count_words(){
-                $fh = fopen('quran-uthmani-min.txt', 'r');
+                $fh = fopen('coran-full-haraka.txt', 'r');
                 $result ='';
                 $number=0;
                 $style = '<div style="padding-left:15%; padding-right:15%; padding-top:5%; overflow:hidden;position:relative;">';
@@ -1273,7 +1270,7 @@
             ## Function poids des sourates 
             function poids_sourate($num_sourate_arabe){
 
-                $fh = fopen('quran-uthmani-min.txt', 'r');
+                $fh = fopen('coran-full-haraka.txt', 'r');
                 
                 $poids_sourate = 0;
 
