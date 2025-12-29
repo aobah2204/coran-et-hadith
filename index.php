@@ -620,7 +620,7 @@
                     echo "Poids divible par 12 <Br/>";                
                 
                 
-                $asma_ar = ["ٱللَّهُ","ٱللَّهِ","ٱللَّهَ","هُوَ","هُوَ ٱلَّذِىٓ","ٱلْحَىُّ","ٱلْقَيُّومُ","رَبَّنَآ","لِلَّهِ","رَبِّ","الرَّحْمَنِ","الرَّحِيمِ","مَالِكِ","عَزِيزٌ","ٱلْعَزِيزُ","ٱلْحَكِيمُ","شَدِيدُ ٱلْعِقَابِ","بَصِيرٌۢ","سَرِيعُ ٱلْحِسَابِ","قَدِيرٌۭ","رَءُوفٌۢ","رَّحِيمٌ",
+                $asma_ar = ["ٱللَّهُ","ٱللَّهِ","ٱللَّهَ","هُوَ ٱلَّذِىٓ","ٱلْحَىُّ","ٱلْقَيُّومُ","رَبَّنَآ","لِلَّهِ","رَبِّ","الرَّحْمَنِ","الرَّحِيمِ","مَالِكِ","عَزِيزٌ","ٱلْعَزِيزُ","ٱلْحَكِيمُ","شَدِيدُ ٱلْعِقَابِ","بَصِيرٌۢ","سَرِيعُ ٱلْحِسَابِ","قَدِيرٌۭ","رَءُوفٌۢ","رَّحِيمٌ",
                         "ٱلسَّمِيعُ","ٱلْعَلِيمُ","سَمِيعُ ٱلدُّعَآءِ","وَلِىُّ","وَٰسِعٌ","عَلِيمٌۭ","ذُو ٱلْفَضْلِ ٱلْعَظِيمِ","غَفُورٌۭ","رَبَّكَ","حَكِيمٌ "];
                 
             
@@ -725,7 +725,7 @@
             ## Lis la sourate en parallèle
             function read_sourate($num_sourate) {
 
-                $asma_ar = ["ٱللَّهُ","ٱللَّهِ","ٱللَّهَ","هُوَ","هُوَ ٱلَّذِىٓ","ٱلْحَىُّ","ٱلْقَيُّومُ","رَبَّنَآ","لِلَّهِ","رَبِّ","الرَّحْمَنِ","الرَّحِيمِ","مَالِكِ","عَزِيزٌ","ٱلْعَزِيزُ","ٱلْحَكِيمُ","شَدِيدُ ٱلْعِقَابِ","بَصِيرٌۢ","سَرِيعُ ٱلْحِسَابِ","قَدِيرٌۭ","رَءُوفٌۢ","رَّحِيمٌ",
+                $asma_ar = ["ٱللَّهُ","ٱللَّهِ","ٱللَّهَ","هُوَ ٱلَّذِىٓ","ٱلْحَىُّ","ٱلْقَيُّومُ","رَبَّنَآ","لِلَّهِ","رَبِّ","الرَّحْمَنِ","الرَّحِيمِ","مَالِكِ","عَزِيزٌ","ٱلْعَزِيزُ","ٱلْحَكِيمُ","شَدِيدُ ٱلْعِقَابِ","بَصِيرٌۢ","سَرِيعُ ٱلْحِسَابِ","قَدِيرٌۭ","رَءُوفٌۢ","رَّحِيمٌ",
                         "ٱلسَّمِيعُ","ٱلْعَلِيمُ","سَمِيعُ ٱلدُّعَآءِ","وَلِىُّ","وَٰسِعٌ","عَلِيمٌۭ","ذُو ٱلْفَضْلِ ٱلْعَظِيمِ","غَفُورٌۭ"];
                 
                 $asma_fr = ["Allah","Le Tout-Miséricordieux","Le Très-Miséricordieux","Le Souverain","Le Très-Saint", "La Paix","Le Garant","Le Protecteur","Le Tout-Puissant","Le Contraignant","Le Suprême",
@@ -950,7 +950,7 @@
                 $title = '<div style="font-size:2.25em;color:green;font-weight:bold; font-family:Scheherazade New, serif; direction:rtl;"> < '.$word.' > apparaît dans le coran : '.$number.' fois </div></br>';
                 $style = '<div style="padding-left:15%; padding-right:15%; padding-top:5%; overflow:hidden;position:relative; font-family:Scheherazade New, serif; direction:rtl; text-align:justify;">';
 
-                $result = str_replace($word, "<span style='color:blue;'>$word</span>", $result);
+                $result = str_replace(strtolower($word), "<span style='color:blue;'>$word</span>", strtolower($result));
                 echo $style.$title.$result.'</div>';
 
             }
@@ -988,7 +988,7 @@
 
                 $title = '<div style="font-size:2.25em;color:green;font-weight:bold">" '.$word_french.'" : apparaît dans le coran : '.$number.' fois</div></br>';
                 $style = '<div style="padding-left:15%; padding-right:15%; padding-top:5%; overflow:hidden;position:relative;">';
-                $result = str_replace($word_french, "<span style='color:blue;'>$word_french</span>", $result);
+                $result = str_replace(strtolower($word_french), "<span style='color:blue;'>$word_french</span>", strtolower($result));
                 echo $style.$title.$result.'</div>';
             }
 
@@ -1144,8 +1144,8 @@
                 }
 
                 $title = '<div style="font-size:2.25em;color:green;font-weight:bold">" '.$word_french_jv.'" apparaît dans le jardin des vertueux : '.$number.' fois</div></br>';
-                $style = '<div style="padding-left:15%; padding-right:15%; padding-top:5%; overflow:hidden;position:relative;">';
-                $result = str_replace($word_french_jv, "<span style='color:blue;'>$word_french_jv</span>", $result);
+                $style = '<div style="padding-left:15%; padding-right:15%; padding-top:5%; overflow:hidden;position:relative; text-align:justify;">';
+                $result = str_replace(strtolower($word_french_jv), "<span style='color:blue;'>$word_french_jv</span>", strtolower($result));
                 echo $style.$title.$result.'</div>';
             }
 
