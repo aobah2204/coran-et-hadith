@@ -936,9 +936,9 @@
                             $result = $result.$result_french;
 
                             $texte = $line_splits[2];                            
-                            $count = substr_count(
-                                strtolower($texte),
-                                strtolower($word)
+                            $count = mb_substr_count(
+                                mb_strtolower($texte,'UTF-8'),
+                                mb_strtolower($word,'UTF-8'), 'UTF-8'
                             );
                             $number = $number + $count;
                     }
@@ -975,9 +975,9 @@
                             $result = $result.$result_french;
 
                             $texte = $line_splits[2];                            
-                            $count = substr_count(
-                                strtolower($texte),
-                                strtolower($word_french)
+                            $count = mb_substr_count(
+                                mb_strtolower($texte,'UTF-8'),
+                                mb_strtolower($word_french,'UTF-8'),'UTF-8'
                             );
                             $number = $number + $count;
                     }
@@ -1032,9 +1032,9 @@
 
                             #Incrementation du nombre
                             #$number = $number + substr_count($Hadith,$word_french_jv);
-                            $count = substr_count(
-                                strtolower($Hadith),
-                                strtolower($word_french_jv)
+                            $count = mb_substr_count(
+                                mb_strtolower($Hadith,'UTF-8'),
+                                mb_strtolower($word_french_jv,'UTF-8'),'UTF-8'
                             );
                             $number = $number + $count;
 
@@ -1202,7 +1202,7 @@
                     "غ" => 1000,
                            );
                 // Longueur du mot
-                $longueur = strlen($mot);
+                $longueur = mb_strlen($mot,'UTF-8');
 
                 $poids = 0;
 
@@ -1356,7 +1356,267 @@
                 
                 $numpage = '<div class="page-number" id="page-number">'.$num_page.'</div>';
                 echo $style.$result.$numpage;
-            }               
+            }            
+
+            function lirePageCoran($fichier,$numeroPage)
+            {
+                $fh = fopen($fichier, 'r');
+
+                $versets = [];
+                $fatiha = [];
+                $baqaraDebut = [];
+
+                $taillePage = 0;
+                $tailleLigne = 0;
+
+                $alfatiha = '';
+                $albagara = '';
+                $result = '';
+
+                $sourates_ar = [
+                  "سورة الفاتحة",
+                  "سورة البقرة",
+                  "سورة آل عمران",
+                  "سورة النساء",
+                  "سورة المائدة",
+                  "سورة الأنعام",
+                  "سورة الأعراف",
+                  "سورة الأنفال",
+                  "سورة التوبة",
+                  "سورة يونس",
+                  "سورة هود",
+                  "سورة يوسف",
+                  "سورة الرعد",
+                  "سورة إبراهيم",
+                  "سورة الحجر",
+                  "سورة النحل",
+                  "سورة الإسراء",
+                  "سورة الكهف",
+                  "سورة مريم",
+                  "سورة طه",
+                  "سورة الأنبياء",
+                  "سورة الحج",
+                  "سورة المؤمنون",
+                  "سورة النور",
+                  "سورة الفرقان",
+                  "سورة الشعراء",
+                  "سورة النمل",
+                  "سورة القصص",
+                  "سورة العنكبوت",
+                  "سورة الروم",
+                  "سورة لقمان",
+                  "سورة السجدة",
+                  "سورة الأحزاب",
+                  "سورة سبإ",
+                  "سورة فاطر",
+                  "سورة يس",
+                  "سورة الصافات",
+                  "سورة ص",
+                  "سورة الزمر",
+                  "سورة غافر",
+                  "سورة فصلت",
+                  "سورة الشورى",
+                  "سورة الزخرف",
+                  "سورة الدخان",
+                  "سورة الجاثية",
+                  "سورة الأحقاف",
+                  "سورة محمد",
+                  "سورة الفتح",
+                  "سورة الحجرات",
+                  "سورة ق",
+                  "سورة الذاريات",
+                  "سورة الطور",
+                  "سورة النجم",
+                  "سورة القمر",
+                  "سورة الرحمن",
+                  "سورة الواقعة",
+                  "سورة الحديد",
+                  "سورة المجادلة",
+                  "سورة الحشر",
+                  "سورة الممتحنة",
+                  "سورة الصف",
+                  "سورة الجمعة",
+                  "سورة المنافقون",
+                  "سورة التغابن",
+                  "سورة الطلاق",
+                  "سورة التحريم",
+                  "سورة الملك",
+                  "سورة القلم",
+                  "سورة الحاقة",
+                  "سورة المعارج",
+                  "سورة نوح",
+                  "سورة الجن",
+                  "سورة المزمل",
+                  "سورة المدثر",
+                  "سورة القيامة",
+                  "سورة الإنسان",
+                  "سورة المرسلات",
+                  "سورة النبإ",
+                  "سورة النازعات",
+                  "سورة عبس",
+                  "سورة التكوير",
+                  "سورة الانفطار",
+                  "سورة المطففين",
+                  "سورة الانشقاق",
+                  "سورة البروج",
+                  "سورة الطارق",
+                  "سورة الأعلى",
+                  "سورة الغاشية",
+                  "سورة الفجر",
+                  "سورة البلد",
+                  "سورة الشمس",
+                  "سورة الليل",
+                  "سورة الضحى",
+                  "سورة الشرح",
+                  "سورة التين",
+                  "سورة العلق",
+                  "سورة القدر",
+                  "سورة البينة",
+                  "سورة الزلزلة",
+                  "سورة العاديات",
+                  "سورة القارعة",
+                  "سورة التكاثر",
+                  "سورة العصر",
+                  "سورة الهمزة",
+                  "سورة الفيل",
+                  "سورة قريش",
+                  "سورة الماعون",
+                  "سورة الكوثر",
+                  "سورة الكافرون",
+                  "سورة النصر",
+                  "سورة المسد",
+                  "سورة الإخلاص",
+                  "سورة الفلق",
+                  "سورة الناس"
+                ];
+
+                $currentSourate = 1;
+
+                $bismillah_i = "بسم الله الرحمن الرحيم";
+                $bismillah = "</br><span style='font-size:1.85em;color:#0e3c68;font-weight:bold; text-align:right; font-family:Scheherazade New, serif; direction:rtl; text-align:center;'>".$bismillah_i."</span></br>";
+                
+
+                // 1️⃣ Lecture + classification
+                while(!feof($fh)){
+
+                    $line = fgets($fh);
+                    $line_splits = explode("|",$line);
+                    #echo $line;            
+                    
+
+                    if (mb_strpos($line, $bismillah_i, 0, 'UTF-8') !== false) {
+                        #echo $line;
+                        #$result .= $bismillah;
+                        $ayah =  "<br>".$sourates_ar[$currentSourate].$bismillah;
+                        $sourate = $sourate;
+                        $verset  = 0;
+                        $longueur = mb_strlen($ayah,'UTF-8');
+                        $versets[] = compact('sourate', 'verset', 'ayah', 'longueur');
+                    }
+
+                    if(count($line_splits) === 3){
+                        
+                        [$sourate, $verset, $ayah] = array_map('trim', explode('|', $line));
+                    
+                        if($sourate === '' || $verset === '' || $ayah === ''){
+                            continue;
+                        };
+
+                        $sourate = (int)$sourate;
+                        $verset  = (int)$verset;
+                        $longueur = mb_strlen($ayah,'UTF-8');
+                        $currentSourate = $sourate;
+
+                        // Références de taille
+                        if ($sourate === 2 && $verset === 282) {
+                            $taillePage = $longueur;
+                            echo 'Taille page :'.$taillePage.'\n';
+                        }
+                        if ($sourate === 108) {
+                            $tailleLigne += $longueur;
+                            #echo 'Taille ligne :'.$tailleLigne;
+                        }
+                        // Pages spéciales
+                        if ($sourate === 1) {
+                            $fatiha[] = compact('sourate', 'verset', 'ayah', 'longueur');  
+                            $alfatiha .= $ayah." ﴿".$verset."﴾ ";
+                            continue;
+                        }
+
+                        if ($sourate === 2 && $verset >= 1 && $verset <= 5) {
+                            $baqaraDebut[] = compact('sourate', 'verset', 'ayah', 'longueur');
+                            $albagara .= $ayah." ﴿".$verset."﴾ ";
+                            continue;
+                        }
+
+                        // Flux normal
+                        $versets[] = compact('sourate', 'verset', 'ayah', 'longueur');
+                    }
+                    
+                    
+                }
+
+                if ($taillePage === 0 || $tailleLigne === 0) {
+                    throw new Exception("Références 2:282 ou sourate 108 introuvables");
+                }
+
+                // 2️⃣ Pages spéciales
+                if ($numeroPage === 1) {
+                    return $bismillah.$alfatiha; // 1 ligne
+                }
+
+                if ($numeroPage === 2) {
+                    return $bismillah.$albagara; // 1 ligne
+                }
+
+                // 3️⃣ Pagination normale à partir de la page 3
+                $pageCourante = 3; 
+                $taillePageCourante = 0;
+
+                $ligneCourante = [];
+                $tailleLigneCourante = 0;
+
+                $contenuPage = [];
+                $result = '';
+
+                foreach ($versets as $v) {
+
+                    $longueurV = $v['longueur'];   
+                    $taillePageCourante += $longueurV;
+
+                    if($taillePageCourante > $taillePage){
+                        $pageCourante++; 
+                        $taillePageCourante = 0;
+                    }
+
+                    if($pageCourante === $numeroPage){
+                        $result .= $v['ayah']." ﴿".$v['verset']."﴾ ";
+                    }
+
+                    if ($pageCourante > $numeroPage) {
+                        break;
+                    }                    
+                }
+                // Ajouter la dernière ligne
+                /*if (!empty($ligneCourante)) {
+
+                    if ($pageCourante === $numeroPage &&  $taillePageCourante + $tailleLigne <= $taillePage) {
+
+                        $contenuPage[] = $ligneCourante;
+                        $result .= $v['ayah']." ﴿".$v['verset']."﴾ ";
+                        #echo "Ligne ajouté :".$ligneCourante;
+                    }
+                }*/
+
+                $asma_ar = ["ٱللَّهُ","ٱللَّهِ","ٱللَّهَ","هُوَ ٱلَّذِىٓ","ٱلْحَىُّ","ٱلْقَيُّومُ","رَبَّنَآ","لِلَّهِ","رَبِّ","الرَّحْمَنِ","الرَّحِيمِ","مَالِكِ","عَزِيزٌ","ٱلْعَزِيزُ","ٱلْحَكِيمُ","شَدِيدُ ٱلْعِقَابِ","بَصِيرٌۢ","سَرِيعُ ٱلْحِسَابِ","قَدِيرٌۭ","رَءُوفٌۢ","رَّحِيمٌ",
+                        "ٱلسَّمِيعُ","ٱلْعَلِيمُ","سَمِيعُ ٱلدُّعَآءِ","وَلِىُّ","وَٰسِعٌ","عَلِيمٌۭ","ذُو ٱلْفَضْلِ ٱلْعَظِيمِ","غَفُورٌۭ"];
+                
+                foreach ($asma_ar as $mot) {
+                    $result = str_ireplace($mot, "<span style='color:green;'>$mot</span>", $result);
+                } 
+
+                return $result."<div class='page-number'>".$pageCourante."</div>";
+            }
 
             ## Run python application
             if(!empty($_POST['coran_browser'])){
@@ -1445,14 +1705,14 @@
         </div>
 
         <div class=text-ar>
-            <?php                
+            <?php               
                 
                 ## goPageCoran
                 if(!empty($_POST['page'])){
                       $page = intval($_POST['page']);
                       if ($page < 1) $page = 1;
                       if ($page > 604) $page = 604;
-                      read_coran_page($page);
+                      echo "<div class='page-coran'>".lirePageCoran('coran-full-haraka.txt',$page)."</div>";
                 } 
                   
             ?>   
@@ -1465,15 +1725,15 @@
         <img class=logo src='coran_transp.png'>
         <p>@Author: Bah Amadou Oury</p>
     </div>
-    <!--<footer class="footer">
+    <!--<footer class=footer>
       <div class="footer-content">
 
         <img class=logo src='coran_transp.png'>
         <p>@Author: Bah Amadou Oury</p>
 
-        <!--<p>📩 Contact</p>-->
+        <p>📩 Contact</p>
 
-        <!--<a href="mailto:aobah34@gmail.com" class="footer-link">
+        <a href="mailto:aobah34@gmail.com" class="footer-link">
           ✉️ aobah34@gmail.com
         </a>
 
